@@ -1,22 +1,728 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Conference Topic</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+<title>Alpha-Divergence | ACML Tutorial</title>
+
+<style>
+{
+box-sizing: border-box;
+}
+body {
+margin: 0;
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+Roboto,
+Helvetica,
+Arial,
+sans-serif;
+color: #222;
+background: #ffffff;
+line-height: 1.7;
+}
+
+/* ---------- Navigation ---------- /
+nav {
+position: sticky;
+top: 0;
+background: rgba(255, 255, 255, 0.96);
+border-bottom: 1px solid #e8e8e8;
+z-index: 1000;
+}
+
+.nav-container {
+max-width: 1050px;
+margin: auto;
+padding: 15px 25px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-weight: 700;
+font-size: 18px;
+}
+
+nav a {
+text-decoration: none;
+color: #555;
+margin-left: 24px;
+font-size: 14px;
+}
+
+nav a:hover {
+color: #000;
+}
+
+/* ---------- Main container ---------- /
+.container {
+max-width: 1050px;
+margin: auto;
+padding: 0 25px;
+}
+
+/* ---------- Hero ---------- /
+.hero {
+padding: 105px 0 90px;
+text-align: center;
+}
+
+.conference {
+font-size: 14px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: #777;
+margin-bottom: 22px;
+}
+
+h1 {
+font-size: 58px;
+line-height: 1.1;
+margin: 0 auto 25px;
+max-width: 850px;
+}
+
+.subtitle {
+font-size: 20px;
+color: #666;
+max-width: 700px;
+margin: auto;
+}
+
+.buttons {
+margin-top: 32px;
+}
+
+.button {
+display: inline-block;
+padding: 10px 23px;
+margin: 5px;
+border: 1px solid #222;
+border-radius: 7px;
+text-decoration: none;
+color: #222;
+font-size: 14px;
+transition: 0.2s;
+}
+
+.button:hover {
+background: #222;
+color: white;
+}
+
+/* ---------- Sections ---------- /
+section {
+padding: 70px 0;
+border-top: 1px solid #eeeeee;
+}
+
+h2 {
+font-size: 30px;
+margin-bottom: 25px;
+}
+
+h3 {
+font-size: 19px;
+}
+
+p {
+font-size: 16px;
+color: #444;
+}
+
+/* ---------- Highlight ---------- /
+.highlight {
+background: #f7f7f7;
+border-radius: 12px;
+padding: 30px;
+margin-top: 30px;
+}
+
+/* ---------- Presenters ---------- /
+.presenters {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 30px;
+margin-top: 35px;
+}
+
+.presenter-card {
+border: 1px solid #e5e5e5;
+border-radius: 12px;
+padding: 30px;
+background: white;
+transition: 0.2s;
+}
+
+.presenter-card:hover {
+transform: translateY(-3px);
+box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.presenter-name {
+font-size: 22px;
+font-weight: 700;
+margin-bottom: 5px;
+}
+
+.affiliation {
+color: #777;
+font-size: 14px;
+margin-bottom: 20px;
+}
+
+.presenter-card p {
+font-size: 15px;
+}
+
+/* ---------- Topics ---------- /
+.topics {
+display: grid;
+grid-template-columns:
+repeat(2, 1fr);
+gap: 20px;
+margin-top: 30px;
+}
+
+.topic-card {
+border: 1px solid #e5e5e5;
+border-radius: 10px;
+padding: 25px;
+}
+
+.topic-number {
+font-size: 13px;
+color: #888;
+letter-spacing: 1px;
+}
+
+.topic-card h3 {
+margin-top: 8px;
+margin-bottom: 10px;
+}
+
+.topic-card p {
+font-size: 14px;
+}
+
+/* ---------- Schedule ---------- /
+.schedule {
+margin-top: 30px;
+border: 1px solid #e5e5e5;
+border-radius: 10px;
+overflow: hidden;
+}
+
+.schedule-row {
+display: grid;
+grid-template-columns:
+180px 1fr;
+padding: 22px 25px;
+border-bottom: 1px solid #eeeeee;
+}
+
+.schedule-row:last-child {
+border-bottom: none;
+}
+
+.schedule-time {
+font-weight: 600;
+}
+
+.schedule-content {
+color: #555;
+}
+
+/* ---------- Materials ---------- /
+.materials {
+display: grid;
+grid-template-columns:
+repeat(3, 1fr);
+gap: 20px;
+margin-top: 30px;
+}
+
+.material {
+padding: 25px;
+border: 1px solid #e5e5e5;
+border-radius: 10px;
+text-decoration: none;
+color: #222;
+transition: 0.2s;
+}
+
+.material:hover {
+background: #f7f7f7;
+}
+
+.material-title {
+font-weight: 700;
+margin-bottom: 8px;
+}
+
+.material p {
+font-size: 14px;
+margin: 0;
+}
+
+/* ---------- Footer ---------- /
+footer {
+text-align: center;
+padding: 50px 20px;
+color: #888;
+font-size: 13px;
+border-top: 1px solid #eeeeee;
+}
+
+/* ---------- Mobile ---------- /
+@media (max-width: 700px) {
+h1 {
+font-size: 40px;
+}
+
+.presenters,
+.topics,
+.materials {
+grid-template-columns: 1fr;
+}
+
+.schedule-row {
+grid-template-columns: 1fr;
+gap: 8px;
+}
+
+.nav-container {
+flex-direction: column;
+gap: 10px;
+}
+
+nav a {
+margin-left: 10px;
+margin-right: 10px;
+}
+}
+</style>
 </head>
 
 <body>
 
-<h1>My Conference Topic</h1>
+<!-- ================= Navigation ================= -->
+<nav>
+<div class="nav-container">
+<div class="logo">
+ACML Tutorial
+</div>
+
+<div>
+<a href="#overview">
+Overview
+</a>
+<a href="#presenters">
+Presenters
+</a>
+<a href="#topics">
+Topics
+</a>
+<a href="#schedule">
+Schedule
+</a>
+<a href="#materials">
+Materials
+</a>
+</div>
+</div>
+</nav>
+
+<!-- ================= Hero ================= -->
+<div class="container">
+<div class="hero">
+<div class="conference">
+ACML 2026 · Tutorial
+</div>
+
+<h1>
+Alpha-Divergence
+</h1>
+
+<div class="subtitle">
+A Tutorial on Alpha-Divergence and
+Its Applications in Statistical Learning
+</div>
+
+<div class="buttons">
+<a class="button"
+href="#schedule">
+Tutorial Schedule
+</a>
+
+<a class="button"
+href="#materials">
+Tutorial Materials
+</a>
+</div>
+</div>
+
+<!-- ================= Overview ================= -->
+<section id="overview">
+<h2>
+Tutorial Overview
+</h2>
 
 <p>
-Your Name
+<strong>Placeholder:</strong>
+Provide a brief description of the tutorial here.
+Introduce alpha-divergence, explain its relationship
+to other statistical divergences, and describe why
+it is useful for modern statistical learning and
+machine learning.
 </p>
 
-<h2>About</h2>
+<div class="highlight">
+<strong>
+What will participants learn?
+</strong>
 
 <p>
-This is my conference presentation webpage.
+Placeholder: Summarize the main learning
+outcomes of the tutorial in two or three
+sentences.
 </p>
+</div>
+</section>
+
+<!-- ================= Presenters ================= -->
+<section id="presenters">
+<h2>
+Presenters
+</h2>
+
+<div class="presenters">
+
+<!-- Presenter 1 -->
+<div class="presenter-card">
+<div class="presenter-name">
+Prof. D
+</div>
+
+<div class="affiliation">
+<strong>
+Affiliation:
+</strong>
+[University / Institution]
+</div>
+
+<p>
+<strong>Bio:</strong>
+Placeholder for the biography of
+Prof. D. Briefly describe the
+research position, research interests,
+major contributions, and relevant
+experience.
+</p>
+</div>
+
+<!-- Presenter 2 -->
+<div class="presenter-card">
+<div class="presenter-name">
+Dr. Zheng
+</div>
+
+<div class="affiliation">
+<strong>
+Affiliation:
+</strong>
+[University / Institution]
+</div>
+
+<p>
+<strong>Bio:</strong>
+Placeholder for the biography of
+Dr. Zheng. Briefly describe the
+research position, research interests,
+and relevant research experience.
+</p>
+</div>
+</div>
+</section>
+
+<!-- ================= Topics ================= -->
+<section id="topics">
+<h2>
+Tutorial Topics
+</h2>
+
+<p>
+Placeholder: Provide a concise outline of
+the topics covered during the tutorial.
+</p>
+
+<div class="topics">
+
+<div class="topic-card">
+<div class="topic-number">
+PART 01
+</div>
+<h3>
+Introduction and Motivation
+</h3>
+<p>
+Placeholder: Background, motivation,
+and the role of divergence measures
+in statistical learning.
+</p>
+</div>
+
+<div class="topic-card">
+<div class="topic-number">
+PART 02
+</div>
+<h3>
+Alpha-Divergence
+</h3>
+<p>
+Placeholder: Definition, properties,
+interpretation, and connections to
+other divergences.
+</p>
+</div>
+
+<div class="topic-card">
+<div class="topic-number">
+PART 03
+</div>
+<h3>
+Statistical Inference
+</h3>
+<p>
+Placeholder: Estimation, optimization,
+robustness, and theoretical properties.
+</p>
+</div>
+
+<div class="topic-card">
+<div class="topic-number">
+PART 04
+</div>
+<h3>
+Applications
+</h3>
+<p>
+Placeholder: Applications of
+alpha-divergence in machine learning,
+statistics, signal processing, or
+related areas.
+</p>
+</div>
+
+<div class="topic-card">
+<div class="topic-number">
+PART 05
+</div>
+<h3>
+Practical Examples
+</h3>
+<p>
+Placeholder: Demonstrations,
+examples, datasets, or hands-on
+exercises.
+</p>
+</div>
+
+<div class="topic-card">
+<div class="topic-number">
+PART 06
+</div>
+<h3>
+Discussion and Outlook
+</h3>
+<p>
+Placeholder: Open problems,
+recent developments, and future
+research directions.
+</p>
+</div>
+</div>
+</section>
+
+<!-- ================= Schedule ================= -->
+<section id="schedule">
+<h2>
+Tutorial Schedule
+</h2>
+
+<p>
+Placeholder: The following schedule can be
+updated once the final tutorial timing is
+confirmed.
+</p>
+
+<div class="schedule">
+
+<div class="schedule-row">
+<div class="schedule-time">
+09:00 – 09:15
+</div>
+<div class="schedule-content">
+<strong>
+Introduction
+</strong>
+<br>
+Placeholder: Welcome and overview
+of the tutorial.
+</div>
+</div>
+
+<div class="schedule-row">
+<div class="schedule-time">
+09:15 – 10:00
+</div>
+<div class="schedule-content">
+<strong>
+Part I · Foundations
+</strong>
+<br>
+Placeholder: Background and
+motivation.
+</div>
+</div>
+
+<div class="schedule-row">
+<div class="schedule-time">
+10:00 – 10:45
+</div>
+<div class="schedule-content">
+<strong>
+Part II · Alpha-Divergence
+</strong>
+<br>
+Placeholder: Core concepts,
+definitions, and theory.
+</div>
+</div>
+
+<div class="schedule-row">
+<div class="schedule-time">
+10:45 – 11:00
+</div>
+<div class="schedule-content">
+<strong>
+Break
+</strong>
+</div>
+</div>
+
+<div class="schedule-row">
+<div class="schedule-time">
+11:00 – 11:45
+</div>
+<div class="schedule-content">
+<strong>
+Part III · Applications
+</strong>
+<br>
+Placeholder: Applications and
+practical examples.
+</div>
+</div>
+
+<div class="schedule-row">
+<div class="schedule-time">
+11:45 – 12:00
+</div>
+<div class="schedule-content">
+<strong>
+Discussion and Q&A
+</strong>
+<br>
+Placeholder: Discussion,
+questions, and future directions.
+</div>
+</div>
+</div>
+</section>
+
+<!-- ================= Materials ================= -->
+<section id="materials">
+<h2>
+Tutorial Materials
+</h2>
+
+<div class="materials">
+
+<a class="material"
+href="#">
+<div class="material-title">
+📄 Tutorial Notes
+</div>
+<p>
+Placeholder for tutorial notes.
+</p>
+</a>
+
+<a class="material"
+href="#">
+<div class="material-title">
+🎤 Presentation Slides
+</div>
+<p>
+Placeholder for presentation slides.
+</p>
+</a>
+
+<a class="material"
+href="#">
+<div class="material-title">
+💻 Code & Examples
+</div>
+<p>
+Placeholder for code and
+supplementary materials.
+</p>
+</a>
+</div>
+</section>
+
+<!-- ================= Contact ================= -->
+<section>
+<h2>
+Contact
+</h2>
+
+<p>
+For questions about the tutorial,
+please contact:
+</p>
+
+<p>
+<strong>
+Prof. D
+</strong>
+<br>
+[Email Address]
+</p>
+
+<p>
+<strong>
+Dr. Zheng
+</strong>
+<br>
+[Email Address]
+</p>
+</section>
+</div>
+
+<!-- ================= Footer ================= -->
+<footer>
+ACML 2026 · Tutorial:
+Alpha-Divergence
+<br><br>
+© 2026 Prof. D & Dr. Zheng
+</footer>
 
 </body>
 </html>

@@ -31,7 +31,7 @@ background:var(--navy);border-radius:14px;padding:10px 12px 10px 22px;box-shadow
 .hero{margin:-78px 0 0;padding:170px 20px 120px;background:radial-gradient(900px 400px at 85% 10%,rgba(31,122,140,.55),transparent 60%),linear-gradient(160deg,#0f2747,#16365f 60%,#1b4a6b);color:#fff;text-align:center}
 .hero-in{max-width:960px;margin:0 auto}
 .badge{display:inline-block;padding:7px 16px;border:1px solid rgba(255,255,255,.35);border-radius:999px;font-size:14px;color:#dbe6f5;margin-bottom:28px}
-h1{font-family:var(--serif);font-weight:800;margin:0 0 22px;font-size:clamp(56px,11vw,128px);line-height:1;letter-spacing:-.03em}
+h1{font-family:var(--serif);font-weight:800;margin:0 0 22px;font-size:clamp(44px,8vw,88px);line-height:1;letter-spacing:-.03em}
 .subtitle{max-width:680px;margin:0 auto;font-size:clamp(17px,2.2vw,22px);color:#c9d6ea;line-height:1.55}
 .meta{margin-top:26px;color:#9fb2cf;font-size:15px}
 .btns{margin-top:36px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
@@ -39,7 +39,11 @@ h1{font-family:var(--serif);font-weight:800;margin:0 0 22px;font-size:clamp(56px
 .btn:hover{transform:translateY(-2px)}
 .btn.p{background:var(--gold);color:#1b1b1b}
 .btn.s{border:1.5px solid rgba(255,255,255,.5);color:#fff}
-
+<script>
+  window.MathJax = { tex: { inlineMath: [['$', '$']] } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
 /* Sections */
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 section{padding:84px 0 0}
@@ -96,7 +100,9 @@ section{padding-top:64px}
 
 <div class="nav-wrap">
 <nav>
-<div class="logo">ACML Tutorial</div>
+<div class="logo">
+<a href="https://www.acml-conf.org/2026/" target="_blank" rel="noopener">ACML 2026</a>
+</div>
 <div class="links">
 <a href="#overview">Overview</a>
 <a href="#presenters">Presenters</a>

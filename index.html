@@ -23,6 +23,7 @@ a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .logo a:hover{background:rgba(255,255,255,.12);color:#fff}
 .logo a.cta{background:var(--gold);color:#1b1b1b;font-weight:600}
 .logo a.cta:hover{background:#f0b94f;color:#1b1b1b}
+.photo {flex: none; width: 96px; height: 96px; border-radius: 50%;object-fit: cover;object-position: center top;border: 3px solid var(--card);box-shadow: 0 4px 14px rgba(15, 39, 71, .2);}
   
 /* Floating, separated navigation bar */
 .nav-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;padding:16px 16px 0}
@@ -148,7 +149,8 @@ section{padding-top:64px}
 <h2>Presenters</h2>
 <div class="grid g2">
 <div class="card person">
-<div class="avatar">D</div>
+<!-- <div class="avatar">D</div> -->
+<img class="photo" src="images/presenter1.jpg" alt="Photo of Prof. D"> 
 <div>
 <div class="name">A/Prof. Abd-Krim Seghouane</div>
 <div class="aff">Associate Professor at School of Mathematics and Statistics, The University of Melbourne </div>

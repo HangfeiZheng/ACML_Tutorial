@@ -62,7 +62,7 @@
       const planned=[];for(let k=0;k<N;k+=3)planned.push(target(k));planned.push(target(N-1));trace(ctx,planned,px,py,'rgba(202,225,239,.23)',1.3,[5,6]);
       trace(ctx,truths,px,py,'#B5D0DF',2,[6,5]);trace(ctx,estimates,px,py,'#46D4CC',2.8);
       // Keep the complete paths while showing only recent measurement icons to avoid clutter.
-      const first=Math.max(0,index-55);for(let i=first;i<index;i++){if(i%2!==0)continue;const p=observations[i],img=p.outlier?cat:paw,size=p.outlier?17:14;ctx.save();ctx.globalAlpha=.22+.70*(i-first+1)/Math.max(1,index-first);if(img)ctx.drawImage(img,px(p)-size/2,py(p)-size/2,size,size);else{ctx.fillStyle=p.outlier?'#E8737D':'#A4BDCF';ctx.beginPath();ctx.arc(px(p),py(p),3.1,0,Math.PI*2);ctx.fill();}ctx.restore();}
+      const first=Math.max(0,index-55);for(let i=first;i<index;i++){if(i%2!==0)continue;const p=observations[i],img=p.outlier?cat:paw,size=p.outlier?17:14;ctx.save();ctx.globalAlpha=.65+.35*(i-first+1)/Math.max(1,index-first);if(img)ctx.drawImage(img,px(p)-size/2,py(p)-size/2,size,size);else{ctx.fillStyle=p.outlier?'#E8737D':'#A4BDCF';ctx.beginPath();ctx.arc(px(p),py(p),3.1,0,Math.PI*2);ctx.fill();}ctx.restore();}
       const t=truths[index-1];if(t){ctx.save();ctx.font='35px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('🐶',px(t),py(t));ctx.restore();}
     }
     function drawRmse(){const b=setup(chart,rc);if(!b)return;const{w,h}=b,L=35,R=9,T=8,B=21,W=w-L-R,H=h-T-B;const ymax=Math.max(.15,...rmse)*1.16;const x=n=>L+(n/N)*W,y=v=>T+H*(1-v/ymax);

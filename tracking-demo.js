@@ -18,15 +18,21 @@
       });
     }
 
-    Promise.all([
-      loadImage('./dog.svg'),
-      loadImage('./paw-dog.svg'),
-      loadImage('./paw-cat.svg')
-    ]).then(([dogImg, pawDogImg, pawCatImg]) => {
-      startDemo({ dogImg, pawDogImg, pawCatImg });
-    }).catch(() => {
-      startDemo({ dogImg: null, pawDogImg: null, pawCatImg: null });
-    });
+    
+Promise.allSettled([
+  loadImage('./dog.svg'),
+  loadImage('./paw-dog.svg'),
+  loadImage('./paw-cat.svg')
+]).then(results => {
+  const names = ['dog.svg', 'paw-dog.svg', 'paw-cat.svg'];
+  const images = results.map((result, i) => {
+    if (result.status === 'fulfilled') return result.value;
+    console.error('Failed to load:', names[i], result.reason);
+    return null;
+  });
+  startDemo({dogImg:images[0],pawDogImg:images[1],pawCatImg:images[2]});
+});
+
 
     function startDemo(assets) {
       let dpr = Math.max(1, window.devicePixelRatio || 1);

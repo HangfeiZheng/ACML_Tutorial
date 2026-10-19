@@ -197,10 +197,10 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 
 <div class="tracking-legend">
 <span><i class="legend-icon">🐶</i>Target</span>
-<span><i class="legend-line true-line"></i>True trajectory</span>
-<span><i class="legend-line estimate-line"></i>Estimated trajectory</span>
 <span><img src="./paw-dog.svg" class="legend-svg" alt="">Observations</span>
 <span><img src="./paw-cat.svg" class="legend-svg" alt="">Outliers</span>
+  <span><i class="legend-line true-line"></i>True trajectory</span>
+<span><i class="legend-line estimate-line"></i>Estimated trajectory</span>
 </div>
 
 <div class="tracking-controls">
@@ -224,7 +224,7 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 
 <div class="tracking-metric">
 <div class="tracking-metric-header">
-<span class="tracking-metric-title">Position RMSE (running) · <span id="trackingProgress">0 / 500 observations</span></span>
+<span class="tracking-metric-title">Position RMSE· <span id="trackingProgress">0 / 500 observations</span></span>
 <span class="tracking-metric-number"><span id="trackingRmseValue">–</span> <small>trajectory units</small></span>
 </div>
 <canvas id="trackingRmseChart" class="tracking-rmse-chart" role="img" aria-label="Running position RMSE across 500 observations with red dashed markers for contaminated observations"></canvas>

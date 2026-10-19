@@ -207,37 +207,54 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 
 
 <!-- Right: Interactive dog tracking demonstration -->
+
+<!-- Right: Interactive dog tracking demonstration -->
 <div class="hero-right">
 <div class="demo-card">
-<h3 class="demo-title">Learning in the Presence of Outliers</h3>
-<p class="demo-subtitle">Follow a moving target and discover how contaminated observations affect dynamic state estimation.</p>
 
 <div class="tracking-placeholder">
-<canvas id="trackingCanvas" class="tracking-canvas" role="img" aria-label="Animated 2D tracking demonstration with a moving dog, noisy measurements and Kalman filter estimate"></canvas>
+<canvas id="trackingCanvas" class="tracking-canvas" role="img" aria-label="Animated dog tracking under measurement contamination"></canvas>
 </div>
 
 <div class="tracking-legend">
-
 <span><i class="legend-icon">🐶</i>Moving target</span>
-<!--<span><i class="legend-line true-line"></i>True trajectory</span>-->
-<!--<span><i class="legend-line estimate-line"></i>Kalman estimate</span>-->
-<span><img src="./paw-dog.svg" class="legend-svg" alt="">Dog observations</span>
-<span><img src="./paw-cat.svg" class="legend-svg" alt="">Cat outliers</span>
+<span><i class="legend-line true-line"></i>True trajectory</span>
+<span><i class="legend-line estimate-line"></i>Kalman estimate</span>
+<span><img src="./paw-dog.svg" class="legend-svg" alt="">Normal observations</span>
+<span><img src="./paw-cat.svg" class="legend-svg" alt="">Outliers</span>
 </div>
 
 <div class="tracking-controls">
-<button class="demo-play" id="trackingPlay" type="button">&#9654; Play</button>
-<div class="tracking-slider-group">
-<div class="tracking-slider-label"><span>Contamination rate</span><strong id="contaminationValue">15%</strong></div>
-<input class="demo-slider" id="contaminationSlider" type="range" min="0" max="30" step="5" value="15" aria-label="Contamination percentage">
+<button class="demo-play" id="trackingPlay" type="button">❚❚ Pause</button>
+<div class="tracking-rate-group">
+<div class="tracking-rate-label">Contamination rate</div>
+<div class="tracking-rate-buttons" id="contaminationButtons">
+<button type="button" data-rate="0" aria-pressed="false">0%</button>
+<button type="button" data-rate="5" aria-pressed="false">5%</button>
+<button type="button" data-rate="10" aria-pressed="false">10%</button>
+<button type="button" data-rate="15" aria-pressed="false">15%</button>
+<button type="button" data-rate="20" class="active" aria-pressed="true">20%</button>
+<button type="button" data-rate="25" aria-pressed="false">25%</button>
+<button type="button" data-rate="30" aria-pressed="false">30%</button>
+</div>
 </div>
 </div>
 
+<div class="tracking-metric">
+<div class="tracking-metric-header">
+<span class="tracking-metric-title">Position RMSE (running)</span>
+<span class="tracking-metric-number"><span id="trackingRmseValue">–</span> <small>units</small></span>
+</div>
+<canvas id="trackingRmseChart" class="tracking-rmse-chart" role="img" aria-label="Running position root mean squared error chart"></canvas>
+</div>
 
-<p class="tracking-caption">Move the slider to explore the effect of outlying measurements on conventional Kalman filtering.</p>
+<h3 class="demo-title">Learning in the Presence of Outliers</h3>
+<p class="demo-subtitle">Follow a moving target and discover how contaminated observations affect dynamic state estimation.</p>
+<p class="tracking-caption">Select a contamination rate to explore how measurement outliers affect conventional Kalman filtering.</p>
+
 </div>
 </div>
-</div>
+
 </header>
 
 

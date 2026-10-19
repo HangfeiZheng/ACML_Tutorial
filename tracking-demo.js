@@ -305,20 +305,15 @@ Promise.allSettled([
         ctx.restore();
       }
 
-      function drawTarget(tp) {
-        ctx.save();
-        ctx.shadowColor = 'rgba(224,164,58,0.28)';
-        ctx.shadowBlur = 18;
-        if (assets.dogImg) {
-          ctx.drawImage(assets.dogImg, tp.x - 18, tp.y - 18, 36, 36);
-        } else {
-          ctx.fillStyle = '#e0a43a';
-          ctx.beginPath();
-          ctx.arc(tp.x, tp.y, 9, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        ctx.restore();
-      }
+      
+     function drawTarget(tp) {
+       ctx.save();
+       ctx.font = '34px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
+       ctx.textAlign = 'center';
+       ctx.textBaseline = 'middle';
+       ctx.fillText('🐶', tp.x, tp.y);
+       ctx.restore();
+       }
 
       function drawEstimateMarker(ep) {
         ctx.save();

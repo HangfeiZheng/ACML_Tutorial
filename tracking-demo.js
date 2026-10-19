@@ -330,8 +330,8 @@ Promise.allSettled([
         roundRect(ctx, 10, 10, 164, 54, 10, true, false);
         ctx.fillStyle = '#667085';
         ctx.font = '12px Inter, Arial, sans-serif';
-        ctx.fillText('Moving target on a curved path', 20, 30);
-        ctx.fillText('Standard Kalman filter', 20, 48);
+        // ctx.fillText('Moving target on a curved path', 20, 30);
+        // ctx.fillText('Standard Kalman filter', 20, 48);
 
         const rateText = 'Contamination: ' + Math.round(contaminationRate * 100) + '%';
         const tw = ctx.measureText(rateText).width;

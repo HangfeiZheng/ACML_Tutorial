@@ -241,6 +241,30 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 </header>
 
 
+<div class="tracking-controls">
+<button class="demo-play" id="trackingPlay" type="button">❚❚ Pause</button>
+<div class="tracking-rate-group">
+<div class="tracking-rate-label">Contamination rate</div>
+<div class="tracking-rate-buttons" id="contaminationButtons">
+<button type="button" data-rate="0">0%</button>
+<button type="button" data-rate="5">5%</button>
+<button type="button" data-rate="10">10%</button>
+<button type="button" data-rate="15">15%</button>
+<button type="button" data-rate="20" class="active">20%</button>
+<button type="button" data-rate="25">25%</button>
+<button type="button" data-rate="30">30%</button>
+</div>
+</div>
+</div>
+
+<div class="tracking-metric">
+<div class="tracking-metric-header">
+<span>Position RMSE (running)</span>
+<span id="trackingRmseValue">–</span>
+</div>
+<canvas id="trackingRmseChart" class="tracking-rmse-chart"></canvas>
+</div>
+
 
 <main class="wrap">
 

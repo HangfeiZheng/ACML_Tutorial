@@ -139,15 +139,13 @@ section{padding-top:64px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
 .tracking-placeholder{background:#f7fafc;border:1px solid #e4eaf0;border-radius:12px;padding:12px;margin-top:14px}
-.orbit-scene{position:relative;height:285px;border-radius:10px;background:radial-gradient(circle at center,#fbfdff 0%,#f3f7fb 100%);overflow:hidden}
-.orbit-scene::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 39px,#e8edf2 40px),repeating-linear-gradient(90deg,transparent 0,transparent 39px,#e8edf2 40px);opacity:.9}
-.orbit-ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%}
+
 .true-orbit{width:190px;height:190px;border:2.5px dashed #8a99aa}
 .estimate-orbit{width:176px;height:198px;border:3px solid #1f7a8c;opacity:.95}
-.track-point{position:absolute;width:9px;height:9px;border-radius:50%;z-index:2}
+
 .meas{background:#6f86a0}
 .outlier{background:#d75f5f;width:10px;height:10px}
-.target-marker{position:absolute;left:68%;top:31%;width:15px;height:15px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 6px rgba(224,164,58,.18);z-index:3}
+
 .scene-label{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);font-size:12px;color:#667085;font-weight:500;z-index:2;background:rgba(255,255,255,.72);padding:4px 10px;border-radius:999px}
 .m1{left:67%;top:24%}
 .m2{left:77%;top:38%}
@@ -174,6 +172,32 @@ section{padding-top:64px}
 .tracking-slider-label strong{color:#14213d;font-size:13px}
 .tracking-slider-group .demo-slider{width:100%;margin:8px 0 0}
 @media (max-width:480px){.orbit-scene{height:235px}.tracking-controls{gap:12px}.tracking-legend{gap:10px}}
+
+/* Interactive dog tracking visualization */
+.hero-right{min-width:0}
+.demo-card{background:#fff;color:#263449;border-radius:18px;padding:24px;box-shadow:0 18px 55px rgba(0,0,0,.23)}
+.demo-title{font-size:19px;font-weight:700;color:#14213d;margin:0 0 7px;font-family:var(--serif)}
+.demo-subtitle{font-size:13px;color:#667085;margin:0 0 15px;line-height:1.6}
+.tracking-placeholder{background:#f7fafc;border:1px solid #e4eaf0;border-radius:12px;padding:8px;overflow:hidden}
+.tracking-canvas{display:block;width:100%;height:300px;border-radius:8px;background:#f7fafc}
+.tracking-legend{display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap;margin-top:14px;color:#667085;font-size:11px}
+.tracking-legend span{display:inline-flex;align-items:center;gap:5px}
+.legend-line{display:inline-block;width:18px;height:0;border-top:3px solid}
+.true-line{border-color:#8d9aab;border-top-style:dashed}
+.estimate-line{border-color:#1f7a8c}
+.legend-icon{font-size:15px;font-style:normal;line-height:1}
+.tracking-controls{display:flex;align-items:center;gap:18px;margin-top:19px;padding-top:16px;border-top:1px solid #e4eaf0}
+.demo-play{border:0;border-radius:9px;background:#1f7a8c;color:#fff;padding:11px 17px;font:600 13px var(--sans);cursor:pointer;white-space:nowrap;transition:background .2s}
+.demo-play:hover{background:#155e6d}
+.demo-slider{flex:1;min-width:0;accent-color:#1f7a8c;cursor:pointer}
+.tracking-slider-group{flex:1;min-width:0}
+.tracking-slider-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#667085}
+.tracking-slider-label strong{color:#14213d;font-size:13px;font-variant-numeric:tabular-nums}
+.tracking-slider-group .demo-slider{width:100%;margin:9px 0 0}
+.tracking-caption{font-size:11px;line-height:1.6;color:#8993a3;margin:13px 0 0}
+@media (max-width:480px){.demo-card{padding:17px}.tracking-canvas{height:250px}.tracking-controls{gap:12px}.tracking-legend{gap:10px}.demo-play{padding:10px 13px}}
+
+
 </style>
 
 </head>
@@ -226,62 +250,36 @@ section{padding-top:64px}
 </div>
 </div>
 
-<!-- Right: Visualization placeholder -->
+
+<!-- Right: Interactive dog tracking demonstration -->
 <div class="hero-right">
 <div class="demo-card">
 <h3 class="demo-title">Learning in the Presence of Outliers</h3>
-<p class="demo-subtitle">A moving target follows a circular trajectory while contaminated measurements distort dynamic state estimation.</p>
+<p class="demo-subtitle">Follow a moving target and discover how contaminated observations affect dynamic state estimation.</p>
 
 <div class="tracking-placeholder">
-<div class="orbit-scene">
-<div class="orbit-ring true-orbit"></div>
-<div class="orbit-ring estimate-orbit"></div>
-
-<span class="track-point meas m1"></span>
-<span class="track-point meas m2"></span>
-<span class="track-point meas m3"></span>
-<span class="track-point meas m4"></span>
-<span class="track-point meas m5"></span>
-<span class="track-point meas m6"></span>
-<span class="track-point meas m7"></span>
-<span class="track-point meas m8"></span>
-
-<span class="track-point outlier o1"></span>
-<span class="track-point outlier o2"></span>
-<span class="track-point outlier o3"></span>
-
-<span class="target-marker"></span>
-<span class="scene-label">Moving target on a circular path</span>
-</div>
+<canvas id="trackingCanvas" class="tracking-canvas" role="img" aria-label="Animated 2D tracking demonstration with a moving dog, noisy measurements and Kalman filter estimate"></canvas>
 </div>
 
 <div class="tracking-legend">
-<span><i class="legend-line true-line"></i>True path</span>
-<span><i class="legend-line estimate-line"></i>Estimate</span>
-<span><i class="legend-dot meas-dot"></i>Measurements</span>
-<span><i class="legend-dot outlier-dot"></i>Outliers</span>
+<span><i class="legend-line true-line"></i>True trajectory</span>
+<span><i class="legend-line estimate-line"></i>Kalman estimate</span>
+<span><i class="legend-icon">🐾</i>Dog observations</span>
+<span><i class="legend-icon">🐈</i>Cat outliers</span>
 </div>
 
 <div class="tracking-controls">
-<button class="demo-play" type="button" disabled>&#9654; Play</button>
+<button class="demo-play" id="trackingPlay" type="button">&#9654; Play</button>
 <div class="tracking-slider-group">
-<div class="tracking-slider-label"><span>Contamination rate</span><strong>15%</strong></div>
-<input class="demo-slider" type="range" min="0" max="30" step="5" value="15" disabled>
-</div>
-</div>
-</div>
-</div>
-<div class="demo-controls">
-<button class="demo-play" type="button" disabled>&#9654; Play</button>
-<input class="demo-slider" type="range" min="0.5" max="1" step="0.01" value="1" disabled>
-<span class="demo-alpha">&alpha; = 1.00</span>
-</div>
-
-  
+<div class="tracking-slider-label"><span>Contamination rate</span><strong id="contaminationValue">15%</strong></div>
+<input class="demo-slider" id="contaminationSlider" type="range" min="0" max="30" step="5" value="15" aria-label="Contamination percentage">
 </div>
 </div>
 
+<p class="tracking-caption">Move the slider to explore the effect of outlying measurements on conventional Kalman filtering.</p>
 </div>
+</div>
+
 </header>
 
 

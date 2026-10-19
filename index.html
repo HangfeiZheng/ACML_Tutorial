@@ -9,51 +9,59 @@
   window.MathJax = { tex: { inlineMath: [['$', '$']] } };
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <style>
-:root{--ink:#14213d;--navy:#0f2747;--teal:#1f7a8c;--gold:#e0a43a;--paper:#f6f8fb;--card:#fff;--text:#2b3445;--muted:#667085;--line:#e1e6ee;
---serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--ink:#14213d;--navy:#0f2747;--teal:#1f7a8c;--gold:#e0a43a;--paper:#f6f8fb;--card:#fff;--text:#2b3445;--muted:#667085;--line:#e1e6ee;--serif:"Fraunces",Georgia,serif;--sans:"Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0c1424;--card:#142036;--text:#d5dbe6;--muted:#93a0b5;--line:#25324a;--ink:#f1f4fa}}
 :root[data-theme="dark"]{--paper:#0c1424;--card:#142036;--text:#d5dbe6;--muted:#93a0b5;--line:#25324a;--ink:#f1f4fa}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:110px}
 body{margin:0;background:var(--paper);color:var(--text);font:16px/1.7 var(--sans)}
 a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-.logo a { color: #fff; text-decoration: none; }
+.logo a{color:#fff;text-decoration:none}
 .logo a:hover{background:rgba(255,255,255,.12);color:#fff}
 .logo a.cta{background:var(--gold);color:#1b1b1b;font-weight:600}
 .logo a.cta:hover{background:#f0b94f;color:#1b1b1b}
-.photo {flex: none; width: 96px; height: 96px; border-radius: 50%;object-fit: cover;object-position: center top;border: 3px solid var(--card);box-shadow: 0 4px 14px rgba(15, 39, 71, .2);}
-  
-/* Floating, separated navigation bar */
+.photo{flex:none;width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--card);box-shadow:0 4px 14px rgba(15,39,71,.2)}
+
+/* Navigation */
 .nav-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;padding:16px 16px 0}
-nav{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;
-background:var(--navy);border-radius:14px;padding:10px 12px 10px 22px;box-shadow:0 10px 30px rgba(15,39,71,.28)}
+nav{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--navy);border-radius:14px;padding:10px 12px 10px 22px;box-shadow:0 10px 30px rgba(15,39,71,.28)}
 .logo{font-family:var(--serif);font-weight:800;color:#fff;font-size:18px;white-space:nowrap}
 .links{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .links a{color:#cfd9ea;text-decoration:none;font-size:14px;font-weight:500;padding:8px 14px;border-radius:8px;transition:background .2s,color .2s}
 .links a:hover{background:rgba(255,255,255,.12);color:#fff}
 .links a.cta{background:var(--gold);color:#1b1b1b;font-weight:600}
 .links a.cta:hover{background:#f0b94f;color:#1b1b1b}
-.lead.notice {color: #c62828;font-weight: 600; background: #fdecea;border-left: 4px solid #c62828;padding: 12px 16px;border-radius: 6px;}
+.lead.notice{color:#c62828;font-weight:600;background:#fdecea;border-left:4px solid #c62828;padding:12px 16px;border-radius:6px}
 
-/* fixed navigation bar
-.nav-wrap{position:relative;z-index:50;padding:0}
-  nav{max-width:none;border-radius:0;padding:12px 5%;box-shadow:none}
-*/
-  
-/* Hero */
-.hero{margin:-78px 0 0;padding:170px 20px 120px;background:radial-gradient(900px 400px at 85% 10%,rgba(31,122,140,.55),transparent 60%),linear-gradient(160deg,#0f2747,#16365f 60%,#1b4a6b);color:#fff;text-align:center}
-.hero-in{max-width:960px;margin:0 auto}
+/* Hero: Two-column layout */
+.hero{margin:-78px 0 0;padding:170px 24px 110px;background:radial-gradient(900px 400px at 85% 10%,rgba(31,122,140,.45),transparent 60%),linear-gradient(160deg,#0f2747,#16365f 60%,#1b4a6b);color:#fff;text-align:left}
+.hero-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:55px}
+.hero-left{min-width:0}
 .badge{display:inline-block;padding:7px 16px;border:1px solid rgba(255,255,255,.35);border-radius:999px;font-size:14px;color:#dbe6f5;margin-bottom:28px}
-h1{font-family:var(--serif);font-weight:800;margin:0 0 22px;font-size:clamp(44px,8vw,88px);line-height:1;letter-spacing:-.03em}
-.subtitle{max-width:680px;margin:0 auto;font-size:clamp(17px,2.2vw,22px);color:#c9d6ea;line-height:1.55}
-.meta{margin-top:26px;color:#9fb2cf;font-size:15px}
-.btns{margin-top:36px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+h1{font-family:var(--serif);font-weight:800;margin:0 0 22px;font-size:clamp(38px,4.5vw,65px);line-height:1.13;letter-spacing:-.03em}
+.subtitle{max-width:680px;margin:0;font-size:clamp(17px,2vw,21px);color:#c9d6ea;line-height:1.55}
+.meta{margin-top:22px;color:#9fb2cf;font-size:15px}
+.btns{margin-top:30px;display:flex;gap:12px;justify-content:flex-start;flex-wrap:wrap}
 .btn{padding:13px 28px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .2s}
 .btn:hover{transform:translateY(-2px)}
 .btn.p{background:var(--gold);color:#1b1b1b}
 .btn.s{border:1.5px solid rgba(255,255,255,.5);color:#fff}
+
+/* Hero: Right-hand visualization placeholder */
+.hero-right{min-width:0}
+.demo-card{background:#fff;color:#263449;border-radius:18px;padding:25px;box-shadow:0 18px 55px rgba(0,0,0,.23)}
+.demo-title{font-size:18px;font-weight:600;color:#14213d;margin:0 0 6px}
+.demo-subtitle{font-size:13px;color:#667085;margin:0 0 16px;line-height:1.6}
+.demo-placeholder{height:290px;border:2px dashed #d7e0e8;border-radius:12px;background:linear-gradient(145deg,#f8fafc,#edf4f7);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:20px}
+.demo-placeholder-icon{font-size:42px;color:#1f7a8c;line-height:1}
+.demo-placeholder-text{font-size:15px;font-weight:600;color:#14213d}
+.demo-placeholder-note{font-size:12px;color:#667085;max-width:280px;line-height:1.6}
+.demo-controls{display:flex;align-items:center;gap:14px;margin-top:18px}
+.demo-play{border:0;border-radius:8px;background:#1f7a8c;color:#fff;padding:9px 16px;font:600 13px var(--sans);cursor:not-allowed;opacity:.6}
+.demo-slider{flex:1;min-width:0;accent-color:#1f7a8c;cursor:not-allowed}
+.demo-alpha{min-width:75px;text-align:right;color:#14213d;font-size:13px;font-weight:600}
 
 /* Sections */
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
@@ -66,6 +74,7 @@ h2::after{content:"";display:block;width:56px;height:4px;background:var(--gold);
 .learn strong{color:var(--ink)}
 .learn p{margin:8px 0 0}
 
+/* Cards */
 .grid{display:grid;gap:22px;margin-top:34px}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -91,21 +100,33 @@ h2::after{content:"";display:block;width:56px;height:4px;background:var(--gold);
 .mat:hover{transform:translateY(-3px);border-color:var(--teal)}
 .mat .t{font-weight:600;color:var(--ink);margin-bottom:6px}
 
+/* Footer */
 footer{background:var(--navy);color:#b7c5dc;text-align:center;padding:42px 20px;font-size:14px}
 footer b{color:#fff;font-family:var(--serif);font-size:17px}
 
+/* Responsive layout */
+@media (max-width:900px){
+.hero{padding:190px 20px 80px}
+.hero-in{grid-template-columns:1fr;gap:35px;max-width:650px}
+h1{font-size:clamp(38px,7vw,56px)}
+}
 @media (max-width:780px){
 .nav-wrap{padding:10px 10px 0}
 nav{flex-direction:column;padding:12px;gap:6px}
 .links{justify-content:center}
 .links a{padding:7px 10px;font-size:13px}
-.hero{padding:190px 18px 90px}
 .g2,.g3{grid-template-columns:1fr}
 .row{grid-template-columns:1fr;gap:4px;padding:18px 20px}
 section{padding-top:64px}
 }
+@media (max-width:480px){
+.demo-card{padding:18px}
+.demo-placeholder{height:240px}
+.hero{padding:190px 18px 70px}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
+
 </head>
 <body>
 
@@ -124,19 +145,46 @@ section{padding-top:64px}
 </nav>
 </div>
 
+
 <header class="hero">
 <div class="hero-in">
+
+<!-- Left: Tutorial information -->
+<div class="hero-left">
 <div class="badge">ACML 2026 Tutorial</div>
-<h1>$\alpha$-Divergence for Robust Statistical Learning</h1>
-<p class="subtitle">Theory, Algorithms and Applications </p>
-<p class="meta">Presented by A/Prof Abd-Krim Seghouane and Dr. Hangfei Zheng</p>
-  <p class="meta">Melbourne, Australia</p>
+<h1><span style="color:#e0a43a;">&alpha;</span>-Divergence for Robust Statistical Learning</h1>
+<p class="subtitle">Theory, Algorithms and Applications</p>
+<p class="meta">Presented by...<br>Melbourne, Australia</p>
 <div class="btns">
 <a class="btn p" href="#schedule">View schedule</a>
 <a class="btn s" href="#materials">Get materials</a>
 </div>
 </div>
+
+<!-- Right: Interactive visualization placeholder -->
+<div class="hero-right">
+<div class="demo-card">
+<h3 class="demo-title">How does &alpha; control robustness?</h3>
+<p class="demo-subtitle">Explore how &alpha;-divergence adaptively downweights observations that deviate from the nominal model.</p>
+
+<div class="demo-placeholder">
+<div class="demo-placeholder-icon">&#945;</div>
+<div class="demo-placeholder-text">Interactive Visualization</div>
+<div class="demo-placeholder-note">An interactive demonstration of &alpha;-divergence and probabilistic robust weighting will appear here.</div>
+</div>
+
+<div class="demo-controls">
+<button class="demo-play" type="button" disabled>&#9654; Play</button>
+<input class="demo-slider" type="range" min="0.5" max="1" step="0.01" value="1" disabled>
+<span class="demo-alpha">&alpha; = 1.00</span>
+</div>
+
+</div>
+</div>
+
+</div>
 </header>
+
 
 <main class="wrap">
 

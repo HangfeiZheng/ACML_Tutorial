@@ -8,7 +8,7 @@
     if(missing.length){console.error('[ACML tracking] Missing HTML IDs:',missing.join(', '));return;}
     const ctx=canvas.getContext('2d'), rc=chart.getContext('2d');
     if(!ctx||!rc){console.error('[ACML tracking] Canvas not available');return;}
-    const N=200, STEP_MS=64, DT=.065, RATE=.86, SX=1,SY=.72,SD=.060,Q=.38;
+    const N=350, STEP_MS=64, DT=.065, RATE=.86, SX=1,SY=.72,SD=.060,Q=.38;
     let contamination=.20, running=false, index=0, seed=47, sumSq=0, state=null;
     let truths=[], estimates=[], observations=[], rmse=[0], outlierSteps=[], last=null,acc=0,raf=0,paw=null,cat=null;
     function loadImage(url){return new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>{console.warn('Icon unavailable:',url);resolve(null);};img.src=url;});}

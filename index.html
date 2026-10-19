@@ -141,7 +141,9 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 .tracking-caption{font-size:11px;line-height:1.6;color:#8993a3;margin:13px 0 0}
 @media (max-width:480px){.demo-card{padding:17px}.tracking-canvas{height:250px}.tracking-controls{gap:12px}.tracking-legend{gap:10px}.demo-play{padding:10px 13px}}
 .legend-svg{display:inline-block;width:18px;height:18px;object-fit:contain;vertical-align:middle;flex-shrink:0}
-.legend-dog{width:20px;height:20px}
+.legend-dog{width:20px;height:20px}  
+.legend-icon{font-size:21px;font-style:normal;line-height:1;display:inline-flex;align-items:center;justify-content:center}
+
 </style>
 
 </head>
@@ -206,7 +208,8 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 </div>
 
 <div class="tracking-legend">
-<span><img src="./dog.svg" class="legend-svg legend-dog" alt="">Moving target</span>
+
+<span><i class="legend-icon">🐶</i>Moving target</span>
 <span><i class="legend-line true-line"></i>True trajectory</span>
 <span><i class="legend-line estimate-line"></i>Kalman estimate</span>
 <span><img src="./paw-dog.svg" class="legend-svg" alt="">Dog observations</span>

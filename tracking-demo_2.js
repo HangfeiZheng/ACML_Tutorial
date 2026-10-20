@@ -353,7 +353,8 @@
       if (!b) return;
 
       const { w, h } = b;
-      const scale = Math.min((w - 34) / 3.35, (h - 24) / 1.70);
+      //const scale = Math.min((w - 34) / 3.35, (h - 24) / 1.70);
+      const scale = Math.min((w - 34) / 4, (h - 24) / 2);
       
       
 

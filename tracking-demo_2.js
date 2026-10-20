@@ -353,7 +353,8 @@
       if (!b) return;
 
       const { w, h } = b;
-      const scale = Math.min((w - 34) / 3.35, (h - 24) / 1.70);
+      //const scale = Math.min((w - 34) / 3.35, (h - 24) / 1.70);
+      const scale = Math.min((w - 36) / 3.25, (h - 30) / 2.95);
       const px = p => w / 2 + (p.x - 0.17) * scale;
       const py = p => h / 2 - (p.y - 0.33) * scale;
 
@@ -469,7 +470,7 @@
       rc.clip();
 
       rc.strokeStyle = 'rgba(255,112,126,.34)';
-      rc.lineWidth = 0.8;
+      rc.lineWidth = 1;
       rc.setLineDash([3, 4]);
 
       for (const n of outlierSteps) {

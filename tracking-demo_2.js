@@ -197,8 +197,9 @@
 
       if (outlier) {
         const a = 2 * Math.PI * rand();
-        const r = 0.60 + 0.55 * rand();
-
+       // const r = 0.60 + 0.55 * rand();
+        const r = 0.30 + 0.55 * rand();
+        
         x += r * Math.cos(a);
         y += r * Math.sin(a);
         outlierSteps.push(index + 1);
@@ -353,8 +354,8 @@
       if (!b) return;
 
       const { w, h } = b;
-      //const scale = Math.min((w - 34) / 3.35, (h - 24) / 1.70);
-      const scale = Math.min((w - 36) / 6, (h - 30) / 5);
+      const scale = Math.min((w - 34) / 3.35, (h - 24) / 1.70);
+     
       const px = p => w / 2 + (p.x - 0.17) * scale;
       const py = p => h / 2 - (p.y - 0.33) * scale;
 

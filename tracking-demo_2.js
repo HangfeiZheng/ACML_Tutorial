@@ -42,7 +42,7 @@
     // ============================================================
     // 2. Simulation parameters and state
     // ============================================================
-    const N = 500, STEP_MS = 64, DT = 0.065;
+    const N = 300, STEP_MS = 64, DT = 0.065;
     const SD = 0.060, Q = 0.38;
 
     let contamination = 0.20, running = false, index = 0;

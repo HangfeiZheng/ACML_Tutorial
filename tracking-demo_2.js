@@ -42,7 +42,7 @@
     // ============================================================
     // 2. Simulation parameters and state
     // ============================================================
-    const N = 300, STEP_MS = 64, DT = 0.065;
+    const N = 500, STEP_MS = 64, DT = 0.065;
     const SD = 0.060, Q = 0.38;
 
     let contamination = 0.20, running = false, index = 0;
@@ -353,9 +353,9 @@
       if (!b) return;
 
       const { w, h } = b;
-     // const scale = Math.min((w - 34) / 3.35, (h - 24) / 1.70);
+      const scale = Math.min((w - 34) / 3.35, (h - 24) / 1.70);
       
-      const scale=Math.min((w-36)/4.2,(h-30)/3.6);
+      
 
       const px = p => w / 2 + (p.x - 0.17) * scale;
       const py = p => h / 2 - (p.y - 0.33) * scale;
@@ -395,30 +395,68 @@
       trace(ctx, estimates, px, py, '#46D4CC', 2.8);
 
       // Show recent measurement icons while retaining full trajectories.
-      const first = Math.max(0, index - 55);
+      // const first = Math.max(0, index - 55);
 
-      for (let i = first; i < index; i++) {
-        if (i % 2 !== 0) continue;
+      // for (let i = first; i < index; i++) {
+      //  if (i % 2 !== 0) continue; //only odd th outliers
 
-        const p = observations[i];
-        const img = p.outlier ? cat : paw;
-        const size = p.outlier ? 17 : 14;
+      //   const p = observations[i];
+      //   const img = p.outlier ? cat : paw;
+      //   const size = p.outlier ? 17 : 14;
 
-        ctx.save();
-        ctx.globalAlpha = 0.65 + 0.35 * (i - first + 1)
-          / Math.max(1, index - first);
+      //   ctx.save();
+      //   ctx.globalAlpha = 0.65 + 0.35 * (i - first + 1)
+      //     / Math.max(1, index - first);
 
-        if (img) {
-          ctx.drawImage(img, px(p) - size / 2, py(p) - size / 2, size, size);
-        } else {
-          ctx.fillStyle = p.outlier ? '#E8737D' : '#A4BDCF';
-          ctx.beginPath();
-          ctx.arc(px(p), py(p), 3.1, 0, Math.PI * 2);
-          ctx.fill();
-        }
+      //   if (img) {
+      //     ctx.drawImage(img, px(p) - size / 2, py(p) - size / 2, size, size);
+      //   } else {
+      //     ctx.fillStyle = p.outlier ? '#E8737D' : '#A4BDCF';
+      //     ctx.beginPath();
+      //     ctx.arc(px(p), py(p), 3.1, 0, Math.PI * 2);
+      //     ctx.fill();
+      //   }
 
-        ctx.restore();
+      //   ctx.restore();
+      // }
+      
+    // ============================================================
+    // Display only the latest 50 observations.
+    // Show every normal observation and outlier in this window.
+    // ============================================================
+
+    const first = Math.max(0, index - 50);
+
+    for (let i = first; i < index; i++) {
+      const p = observations[i];
+      const img = p.outlier ? cat : paw;
+      const size = p.outlier ? 19 : 15;
+
+      ctx.save();
+
+      // Older footprints are slightly transparent.
+      // Outliers are more prominent.
+      ctx.globalAlpha = p.outlier
+        ? 1.0
+        : 0.65 + 0.35 * (i - first + 1) / (index - first);
+
+      if (img) {
+        ctx.drawImage(
+          img,
+          px(p) - size / 2,
+          py(p) - size / 2,
+          size,
+          size
+        );
+      } else {
+        ctx.fillStyle = p.outlier ? '#E8737D' : '#D9E2E9';
+        ctx.beginPath();
+        ctx.arc(px(p), py(p), p.outlier ? 4 : 3, 0, Math.PI * 2);
+        ctx.fill();
       }
+
+      ctx.restore();
+    }
 
       // Current dog position
       const t = truths[index - 1];

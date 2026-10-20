@@ -1,51 +1,490 @@
+
 /* ACML 2026: finite 500-observation Kalman tracking demonstration. */
 (() => {
   function init() {
+    // ============================================================
+    // 1. DOM elements and initialization
+    // ============================================================
     const byId = id => document.getElementById(id);
-    const canvas=byId('trackingCanvas'), chart=byId('trackingRmseChart'), play=byId('trackingPlay'), restart=byId('trackingRestart'), rates=byId('contaminationButtons'), value=byId('trackingRmseValue'), progress=byId('trackingProgress');
-    const needed={trackingCanvas:canvas,trackingRmseChart:chart,trackingPlay:play,trackingRestart:restart,contaminationButtons:rates,trackingRmseValue:value,trackingProgress:progress};
-    const missing=Object.entries(needed).filter(([,v])=>!v).map(([k])=>k);
-    if(missing.length){console.error('[ACML tracking] Missing HTML IDs:',missing.join(', '));return;}
-    const ctx=canvas.getContext('2d'), rc=chart.getContext('2d');
-    if(!ctx||!rc){console.error('[ACML tracking] Canvas not available');return;}
-    const N=500, STEP_MS=64, DT=.065, RATE=.86, SX=1,SY=.72,SD=.060,Q=.38;
-    let contamination=.20, running=false, index=0, seed=47, sumSq=0, state=null;
-    let truths=[], estimates=[], observations=[], rmse=[0], outlierSteps=[], last=null,acc=0,raf=0,paw=null,cat=null;
-    function loadImage(url){return new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>{console.warn('Icon unavailable:',url);resolve(null);};img.src=url;});}
-    Promise.all([loadImage('./paw-dog.svg'),loadImage('./paw-cat.svg')]).then(imgs=>{paw=imgs[0];cat=imgs[1];render();});
-    function rand(){seed=(Math.imul(1664525,seed)+1013904223)>>>0;return seed/4294967296;}
-    function gauss(){const u=Math.max(rand(),1e-9),v=rand();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
-    function target(k){const a=-Math.PI/2+k*DT*RATE;return{x:SX*Math.cos(a),y:SY*Math.sin(a),vx:-SX*RATE*Math.sin(a),vy:SY*RATE*Math.cos(a)};}
-    function axis(p,v){return{p,v,a:.025,b:0,c:.13};}
-    function update(s,z){const d=DT,ap=s.a+2*d*s.b+d*d*s.c+Q*d*d*d*d/4,bp=s.b+d*s.c+Q*d*d*d/2,cp=s.c+Q*d*d; s.p+=d*s.v;const den=ap+SD*SD,k0=ap/den,k1=bp/den,e=z-s.p;s.p+=k0*e;s.v+=k1*e;s.a=(1-k0)*ap;s.b=(1-k0)*bp;s.c=cp-k1*bp;}
-    function advance(){if(index>=N)return;const t=target(index);let x=t.x+SD*gauss(),y=t.y+SD*gauss();const outlier=rand()<contamination;if(outlier){const a=2*Math.PI*rand(),r=.60+.55*rand();x+=r*Math.cos(a);y+=r*Math.sin(a);outlierSteps.push(index+1);}if(index){update(state.x,x);update(state.y,y);}const dx=state.x.p-t.x,dy=state.y.p-t.y;sumSq+=dx*dx+dy*dy;truths.push(t);estimates.push({x:state.x.p,y:state.y.p});observations.push({x,y,outlier});index++;rmse.push(Math.sqrt(sumSq/index));}
-    function stop(){running=false;if(raf)cancelAnimationFrame(raf);raf=0;last=null;acc=0;play.textContent=index>=N?'✓ Finished':'▶ Play';play.setAttribute('aria-pressed','false');play.disabled=index>=N;}
-    function reset(autoplay=true){if(raf)cancelAnimationFrame(raf);running=false;raf=0;last=null;acc=0;seed=47;index=0;sumSq=0;truths=[];estimates=[];observations=[];rmse=[0];outlierSteps=[];const t=target(0);state={x:axis(t.x,t.vx),y:axis(t.y,t.vy)};advance();play.disabled=false;render();if(autoplay)start();else stop();}
-    function start(){if(index>=N)return;running=true;play.disabled=false;play.textContent='❚❚ Pause';play.setAttribute('aria-pressed','true');last=null;acc=0;raf=requestAnimationFrame(loop);}
-    function loop(ts){if(!running)return;if(last===null)last=ts;acc+=Math.min(ts-last,100);last=ts;while(acc>=STEP_MS&&index<N){advance();acc-=STEP_MS;}render();if(index>=N){stop();return;}raf=requestAnimationFrame(loop);}
-    function setup(c,g){const r=c.getBoundingClientRect();if(r.width<=0||r.height<=0)return null;const dpr=Math.min(window.devicePixelRatio||1,2),w=r.width,h=r.height,cw=Math.round(w*dpr),ch=Math.round(h*dpr);if(c.width!==cw||c.height!==ch){c.width=cw;c.height=ch;}g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);return{w,h};}
-    function trace(g,pts,px,py,color,width,dash=[]){if(pts.length<2)return;g.save();g.strokeStyle=color;g.lineWidth=width;g.setLineDash(dash);g.lineCap='round';g.lineJoin='round';g.beginPath();g.moveTo(px(pts[0]),py(pts[0]));for(let j=1;j<pts.length;j++)g.lineTo(px(pts[j]),py(pts[j]));g.stroke();g.restore();}
-    function drawTrack(){const b=setup(canvas,ctx);if(!b)return;const{w,h}=b,scale=Math.min((w-28)/3.2,(h-22)/2.75),px=p=>w/2+p.x*scale,py=p=>h/2-p.y*scale;
-      ctx.save();ctx.strokeStyle='rgba(190,218,229,.13)';ctx.lineWidth=.7;for(let x=20;x<w;x+=38){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}for(let y=16;y<h;y+=38){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}ctx.restore();
-      const orbit=[];for(let k=0;k<=160;k++){const a=-Math.PI/2+2*Math.PI*k/160;orbit.push({x:SX*Math.cos(a),y:SY*Math.sin(a)});}trace(ctx,orbit,px,py,'rgba(202,225,239,.23)',1.3,[5,6]);
-      trace(ctx,truths,px,py,'#B5D0DF',2,[6,5]);trace(ctx,estimates,px,py,'#46D4CC',2.8);
-      // Keep the complete paths while showing only recent measurement icons to avoid clutter.
-      const first=Math.max(0,index-55);for(let i=first;i<index;i++){if(i%2!==0)continue;const p=observations[i],img=p.outlier?cat:paw,size=p.outlier?17:14;ctx.save();ctx.globalAlpha=.22+.70*(i-first+1)/Math.max(1,index-first);if(img)ctx.drawImage(img,px(p)-size/2,py(p)-size/2,size,size);else{ctx.fillStyle=p.outlier?'#E8737D':'#A4BDCF';ctx.beginPath();ctx.arc(px(p),py(p),3.1,0,Math.PI*2);ctx.fill();}ctx.restore();}
-      const t=truths[index-1];if(t){ctx.save();ctx.font='35px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('🐶',px(t),py(t));ctx.restore();}
+
+    const canvas = byId('trackingCanvas');
+    const chart = byId('trackingRmseChart');
+    const play = byId('trackingPlay');
+    const restart = byId('trackingRestart');
+    const rates = byId('contaminationButtons');
+    const value = byId('trackingRmseValue');
+    const progress = byId('trackingProgress');
+
+    const needed = {
+      trackingCanvas: canvas, trackingRmseChart: chart,
+      trackingPlay: play, trackingRestart: restart,
+      contaminationButtons: rates, trackingRmseValue: value,
+      trackingProgress: progress
+    };
+
+    const missing = Object.entries(needed)
+      .filter(([, v]) => !v)
+      .map(([k]) => k);
+
+    if (missing.length) {
+      console.error('[ACML tracking] Missing HTML IDs:', missing.join(', '));
+      return;
     }
-    function drawRmse(){const b=setup(chart,rc);if(!b)return;const{w,h}=b,L=35,R=9,T=8,B=21,W=w-L-R,H=h-T-B;const ymax=Math.max(.15,...rmse)*1.16;const x=n=>L+(n/N)*W,y=v=>T+H*(1-v/ymax);
-      rc.save();rc.font='10px Inter, sans-serif';rc.textAlign='right';rc.fillStyle='rgba(225,238,248,.75)';for(let j=0;j<=2;j++){const v=ymax*j/2, yy=y(v);rc.fillText(v.toFixed(2),L-5,yy+3);rc.strokeStyle='rgba(196,225,238,.16)';rc.beginPath();rc.moveTo(L,yy);rc.lineTo(w-R,yy);rc.stroke();}
-      // Red dashed vertical event lines mark the sample indices of contaminated measurements.
-      rc.save();rc.beginPath();rc.rect(L,T,W,H);rc.clip();rc.strokeStyle='rgba(255,112,126,.34)';rc.lineWidth=.8;rc.setLineDash([3,4]);for(const n of outlierSteps){const xx=x(n);rc.beginPath();rc.moveTo(xx,T);rc.lineTo(xx,T+H);rc.stroke();}rc.restore();
-      rc.fillStyle='rgba(225,238,248,.74)';rc.textAlign='center';for(const n of [0,100,200,300,400,500])rc.fillText(String(n),x(n),h-5);
-      if(rmse.length>1){rc.beginPath();rc.moveTo(x(0),y(rmse[0]));for(let i=1;i<rmse.length;i++)rc.lineTo(x(i),y(rmse[i]));rc.strokeStyle='#46D4CC';rc.lineWidth=2;rc.setLineDash([]);rc.stroke();const n=rmse.length-1;rc.beginPath();rc.arc(x(n),y(rmse[n]),3,0,Math.PI*2);rc.fillStyle='#F0C46C';rc.fill();}rc.restore();
+
+    const ctx = canvas.getContext('2d');
+    const rc = chart.getContext('2d');
+
+    if (!ctx || !rc) {
+      console.error('[ACML tracking] Canvas not available');
+      return;
     }
-    function render(){value.textContent=rmse[rmse.length-1].toFixed(3);progress.textContent=`${index} / ${N} observations`;drawTrack();drawRmse();}
-    play.addEventListener('click',()=>running?stop():start());
-    restart.addEventListener('click',()=>reset(true));
-    rates.querySelectorAll('[data-rate]').forEach(b=>b.addEventListener('click',()=>{contamination=Number(b.dataset.rate)/100;rates.querySelectorAll('[data-rate]').forEach(t=>{const active=t===b;t.classList.toggle('active',active);t.setAttribute('aria-pressed',String(active));});reset(true);}));
-    window.addEventListener('resize',render);
+
+    // ============================================================
+    // 2. Simulation parameters and state
+    // ============================================================
+    const N = 500, STEP_MS = 64, DT = 0.065, RATE = 0.86;
+    const SX = 1, SY = 0.72, SD = 0.060, Q = 0.38;
+
+    let contamination = 0.20, running = false, index = 0;
+    let seed = 47, sumSq = 0, state = null;
+
+    let truths = [], estimates = [], observations = [];
+    let rmse = [0], outlierSteps = [];
+    let last = null, acc = 0, raf = 0;
+    let paw = null, cat = null;
+
+    function loadImage(url) {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => {
+          console.warn('Icon unavailable:', url);
+          resolve(null);
+        };
+        img.src = url;
+      });
+    }
+
+    Promise.all([
+      loadImage('./paw-dog.svg'),
+      loadImage('./paw-cat.svg')
+    ]).then(imgs => {
+      paw = imgs[0];
+      cat = imgs[1];
+      render();
+    });
+
+    // ============================================================
+    // 3. Random numbers and target trajectory
+    // ============================================================
+    function rand() {
+      seed = (Math.imul(1664525, seed) + 1013904223) >>> 0;
+      return seed / 4294967296;
+    }
+
+    function gauss() {
+      const u = Math.max(rand(), 1e-9), v = rand();
+      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    }
+
+    function target(k) {
+      const a = -Math.PI / 2 + k * DT * RATE;
+      return {
+        x: SX * Math.cos(a),
+        y: SY * Math.sin(a),
+        vx: -SX * RATE * Math.sin(a),
+        vy: SY * RATE * Math.cos(a)
+      };
+    }
+
+    // ============================================================
+    // 4. Kalman filter and observation generation
+    // ============================================================
+    function axis(p, v) {
+      return { p, v, a: 0.025, b: 0, c: 0.13 };
+    }
+
+    function update(s, z) {
+      const d = DT;
+      const ap = s.a + 2 * d * s.b + d * d * s.c + Q * d ** 4 / 4;
+      const bp = s.b + d * s.c + Q * d ** 3 / 2;
+      const cp = s.c + Q * d * d;
+
+      s.p += d * s.v;
+
+      const den = ap + SD * SD;
+      const k0 = ap / den, k1 = bp / den;
+      const e = z - s.p;
+
+      s.p += k0 * e;
+      s.v += k1 * e;
+      s.a = (1 - k0) * ap;
+      s.b = (1 - k0) * bp;
+      s.c = cp - k1 * bp;
+    }
+
+    function advance() {
+      if (index >= N) return;
+
+      const t = target(index);
+      let x = t.x + SD * gauss();
+      let y = t.y + SD * gauss();
+
+      const outlier = rand() < contamination;
+
+      if (outlier) {
+        const a = 2 * Math.PI * rand();
+        const r = 0.60 + 0.55 * rand();
+        x += r * Math.cos(a);
+        y += r * Math.sin(a);
+        outlierSteps.push(index + 1);
+      }
+
+      if (index) {
+        update(state.x, x);
+        update(state.y, y);
+      }
+
+      const dx = state.x.p - t.x, dy = state.y.p - t.y;
+      sumSq += dx * dx + dy * dy;
+
+      truths.push(t);
+      estimates.push({ x: state.x.p, y: state.y.p });
+      observations.push({ x, y, outlier });
+
+      index++;
+      rmse.push(Math.sqrt(sumSq / index));
+    }
+
+    // ============================================================
+    // 5. Playback controls
+    // ============================================================
+    function stop() {
+      running = false;
+      if (raf) cancelAnimationFrame(raf);
+
+      raf = 0;
+      last = null;
+      acc = 0;
+
+      play.textContent = index >= N ? '✓ Finished' : '▶ Play';
+      play.setAttribute('aria-pressed', 'false');
+      play.disabled = index >= N;
+    }
+
+    function reset(autoplay = true) {
+      if (raf) cancelAnimationFrame(raf);
+
+      running = false;
+      raf = 0;
+      last = null;
+      acc = 0;
+      seed = 47;
+      index = 0;
+      sumSq = 0;
+
+      truths = [];
+      estimates = [];
+      observations = [];
+      rmse = [0];
+      outlierSteps = [];
+
+      const t = target(0);
+      state = {
+        x: axis(t.x, t.vx),
+        y: axis(t.y, t.vy)
+      };
+
+      advance();
+      play.disabled = false;
+      render();
+
+      if (autoplay) start();
+      else stop();
+    }
+
+    function start() {
+      if (index >= N) return;
+
+      running = true;
+      play.disabled = false;
+      play.textContent = '❚❚ Pause';
+      play.setAttribute('aria-pressed', 'true');
+
+      last = null;
+      acc = 0;
+      raf = requestAnimationFrame(loop);
+    }
+
+    function loop(ts) {
+      if (!running) return;
+
+      if (last === null) last = ts;
+      acc += Math.min(ts - last, 100);
+      last = ts;
+
+      while (acc >= STEP_MS && index < N) {
+        advance();
+        acc -= STEP_MS;
+      }
+
+      render();
+
+      if (index >= N) {
+        stop();
+        return;
+      }
+
+      raf = requestAnimationFrame(loop);
+    }
+
+    // ============================================================
+    // 6. Canvas drawing utilities
+    // ============================================================
+    function setup(c, g) {
+      const r = c.getBoundingClientRect();
+      if (r.width <= 0 || r.height <= 0) return null;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = r.width, h = r.height;
+      const cw = Math.round(w * dpr), ch = Math.round(h * dpr);
+
+      if (c.width !== cw || c.height !== ch) {
+        c.width = cw;
+        c.height = ch;
+      }
+
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.clearRect(0, 0, w, h);
+      return { w, h };
+    }
+
+    function trace(g, pts, px, py, color, width, dash = []) {
+      if (pts.length < 2) return;
+
+      g.save();
+      g.strokeStyle = color;
+      g.lineWidth = width;
+      g.setLineDash(dash);
+      g.lineCap = 'round';
+      g.lineJoin = 'round';
+
+      g.beginPath();
+      g.moveTo(px(pts[0]), py(pts[0]));
+
+      for (let j = 1; j < pts.length; j++) {
+        g.lineTo(px(pts[j]), py(pts[j]));
+      }
+
+      g.stroke();
+      g.restore();
+    }
+
+    // ============================================================
+    // 7. Tracking animation
+    // ============================================================
+    function drawTrack() {
+      const b = setup(canvas, ctx);
+      if (!b) return;
+
+      const { w, h } = b;
+      const scale = Math.min((w - 28) / 3.2, (h - 22) / 2.75);
+      const px = p => w / 2 + p.x * scale;
+      const py = p => h / 2 - p.y * scale;
+
+      // Background grid
+      ctx.save();
+      ctx.strokeStyle = 'rgba(190,218,229,.13)';
+      ctx.lineWidth = 0.7;
+
+      for (let x = 20; x < w; x += 38) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+
+      for (let y = 16; y < h; y += 38) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+
+      // Reference trajectory
+      const orbit = [];
+
+      for (let k = 0; k <= 160; k++) {
+        const a = -Math.PI / 2 + 2 * Math.PI * k / 160;
+        orbit.push({
+          x: SX * Math.cos(a),
+          y: SY * Math.sin(a)
+        });
+      }
+
+      trace(ctx, orbit, px, py, 'rgba(202,225,239,.23)', 1.3, [5, 6]);
+      trace(ctx, truths, px, py, '#B5D0DF', 2, [6, 5]);
+      trace(ctx, estimates, px, py, '#46D4CC', 2.8);
+
+      // Keep complete paths, but display only recent measurement icons.
+      const first = Math.max(0, index - 55);
+
+      for (let i = first; i < index; i++) {
+        if (i % 2 !== 0) continue;
+
+        const p = observations[i];
+        const img = p.outlier ? cat : paw;
+        const size = p.outlier ? 17 : 14;
+
+        ctx.save();
+        ctx.globalAlpha = 0.22 + 0.70 * (i - first + 1) / Math.max(1, index - first);
+
+        if (img) {
+          ctx.drawImage(img, px(p) - size / 2, py(p) - size / 2, size, size);
+        } else {
+          ctx.fillStyle = p.outlier ? '#E8737D' : '#A4BDCF';
+          ctx.beginPath();
+          ctx.arc(px(p), py(p), 3.1, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+      }
+
+      // Current dog location
+      const t = truths[index - 1];
+
+      if (t) {
+        ctx.save();
+        ctx.font = '35px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('🐶', px(t), py(t));
+        ctx.restore();
+      }
+    }
+
+    // ============================================================
+    // 8. Running RMSE chart
+    // ============================================================
+    function drawRmse() {
+      const b = setup(chart, rc);
+      if (!b) return;
+
+      const { w, h } = b;
+      const L = 35, R = 9, T = 8, B = 21;
+      const W = w - L - R, H = h - T - B;
+      const ymax = Math.max(0.15, ...rmse) * 1.16;
+
+      const x = n => L + (n / N) * W;
+      const y = v => T + H * (1 - v / ymax);
+
+      // Horizontal grid and RMSE labels
+      rc.save();
+      rc.font = '10px Inter, sans-serif';
+      rc.textAlign = 'right';
+      rc.fillStyle = 'rgba(225,238,248,.75)';
+
+      for (let j = 0; j <= 2; j++) {
+        const v = ymax * j / 2, yy = y(v);
+
+        rc.fillText(v.toFixed(2), L - 5, yy + 3);
+        rc.strokeStyle = 'rgba(196,225,238,.16)';
+        rc.beginPath();
+        rc.moveTo(L, yy);
+        rc.lineTo(w - R, yy);
+        rc.stroke();
+      }
+
+      // Red dashed lines indicate contaminated observations.
+      rc.save();
+      rc.beginPath();
+      rc.rect(L, T, W, H);
+      rc.clip();
+
+      rc.strokeStyle = 'rgba(255,112,126,.34)';
+      rc.lineWidth = 0.8;
+      rc.setLineDash([3, 4]);
+
+      for (const n of outlierSteps) {
+        const xx = x(n);
+        rc.beginPath();
+        rc.moveTo(xx, T);
+        rc.lineTo(xx, T + H);
+        rc.stroke();
+      }
+
+      rc.restore();
+
+      // Observation indices
+      rc.fillStyle = 'rgba(225,238,248,.74)';
+      rc.textAlign = 'center';
+
+      for (const n of [0, 100, 200, 300, 400, 500]) {
+        rc.fillText(String(n), x(n), h - 5);
+      }
+
+      // Running RMSE curve and current point
+      if (rmse.length > 1) {
+        rc.beginPath();
+        rc.moveTo(x(0), y(rmse[0]));
+
+        for (let i = 1; i < rmse.length; i++) {
+          rc.lineTo(x(i), y(rmse[i]));
+        }
+
+        rc.strokeStyle = '#46D4CC';
+        rc.lineWidth = 2;
+        rc.setLineDash([]);
+        rc.stroke();
+
+        const n = rmse.length - 1;
+        rc.beginPath();
+        rc.arc(x(n), y(rmse[n]), 3, 0, Math.PI * 2);
+        rc.fillStyle = '#F0C46C';
+        rc.fill();
+      }
+
+      rc.restore();
+    }
+
+    // ============================================================
+    // 9. Rendering and UI events
+    // ============================================================
+    function render() {
+      value.textContent = rmse[rmse.length - 1].toFixed(3);
+      progress.textContent = `${index} / ${N} observations`;
+
+      drawTrack();
+      drawRmse();
+    }
+
+    play.addEventListener('click', () => running ? stop() : start());
+    restart.addEventListener('click', () => reset(true));
+
+    rates.querySelectorAll('[data-rate]').forEach(b => {
+      b.addEventListener('click', () => {
+        contamination = Number(b.dataset.rate) / 100;
+
+        rates.querySelectorAll('[data-rate]').forEach(t => {
+          const active = t === b;
+          t.classList.toggle('active', active);
+          t.setAttribute('aria-pressed', String(active));
+        });
+
+        reset(true);
+      });
+    });
+
+    window.addEventListener('resize', render);
     reset(true);
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
 })();

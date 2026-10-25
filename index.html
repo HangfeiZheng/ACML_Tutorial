@@ -91,6 +91,17 @@ h2::after{content:"";display:block;width:56px;height:4px;background:var(--gold);
 .mat:hover{transform:translateY(-3px);border-color:var(--teal)}
 .mat .t{font-weight:600;color:var(--ink);margin-bottom:6px}
 
+  
+/* References */
+.reference-list{margin:30px 0 0;padding-left:30px;max-width:1000px;}
+.reference-list li{padding:12px 0 12px 8px;border-bottom:1px solid var(--line);color:var(--text);font-size:14px;line-height:1.8;}
+.reference-list li:last-child{border-bottom:none;}
+.reference-list li::marker{color:var(--teal);font-weight:600;}
+.reference-list a{color:var(--teal);text-decoration:none;font-weight:500;}
+.reference-list a:hover{text-decoration:underline;text-underline-offset:3px;}
+.reference-list em{color:var(--muted);}
+@media(max-width:780px){.reference-list{padding-left:24px;}.reference-list li{font-size:13px;padding:10px 0 10px 5px;}}
+
 /* Footer */
 footer{background:var(--navy);color:#b7c5dc;text-align:center;padding:42px 20px;font-size:14px}
 footer b{color:#fff;font-family:var(--serif);font-size:17px}
@@ -283,6 +294,7 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 </section>
 
   
+<!--
 <section id="topics">
 <h2>Tutorial Topics</h2>
 <p class="lead notice">This section is still working, the final topics will be available until 2nd Nov.</p>
@@ -294,6 +306,7 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 <div class="card"><div class="part">Part 5</div><h3>Discussion and Outlook</h3><p>Open problems, future directions, Q&A.</p></div>
 </div>
 </section>
+-->
 
 <section id="schedule">
 <h2>Tutorial Schedule</h2>
@@ -327,6 +340,35 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 </div>
 </section>
 
+  
+<!-- References -->
+<section id="references">
+  <div class="wrap">
+    <h2>References</h2>
+
+    <p class="lead">
+      Selected references on divergence-based robust statistical
+      learning, including foundational theory, estimation methods,
+      and representative applications.
+    </p>
+
+    <ol class="reference-list">
+
+      <li>
+        S. Amari.
+        <a href="https://doi.org/10.1007/978-4-431-55978-8"
+           target="_blank" rel="noopener noreferrer">
+          Information Geometry and Its Applications.
+        </a>
+        <em>Springer</em>, 2016.
+      </li>
+
+
+    </ol>
+  </div>
+</section>
+
+  
 <!--
 <section id="contact">
 <h2>Contact</h2>

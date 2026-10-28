@@ -337,23 +337,18 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
       <div class="cover-text">
 
         <p>
-          Real-world data are often affected by outliers, heavy-tailed noise, and distributional contamination. Classical statistical learning methods can be highly sensitive to such deviations from the assumed probabilistic model.
-        </p>
-
-        <p>
-         Existing approaches to robust statistical learning include replacing quadratic losses with robust alternatives, adopting distributionally robust optimization, 
-         assuming heavy-tailed noise distributions or applying external outlier detection. While these approaches offer different forms of robustness, they often rely on specific loss designs, distributional assumptions 
+        Real-world data are often affected by outliers, heavy-tailed noise, and distributional contamination. Classical statistical learning methods can be highly sensitive to such deviations from the assumed probabilistic model.
+         Existing approaches to robust statistical learning include replacing quadratic losses with robust alternatives, adopting distributionally robust optimization, assuming heavy-tailed noise distributions or applying external outlier detection. 
+        While these approaches offer different forms of robustness, they often rely on specific loss designs, distributional assumptions 
          or additional procedures for identifying outliers. Divergence-based estimation offers a principled probabilistic framework that <strong>incorporates robustness directly into statistical inference</strong>,
         adaptively reducing the influence of contaminated observations while retaining useful information, <strong>without requiring explicit assumptions about the contamination distribution or separate outlier detection.</strong>
         </p>
 
         <p>
         This tutorial provides a systematic introduction to robust statistical learning, starting from classical robust loss functions and maximum likelihood estimation (MLE) and establishing their connections to divergence-based estimation.
-        With particular emphasis on $\alpha$-divergence, we introduce a unified probabilistic framework for robust learning that incorporates adaptive probabilistic weighting to mitigate contamination. We further discuss the robustness–efficiency tradeoff, optimization strategies, and theoretical properties of the resulting estimators.
-        </p>
-
-        <p>
-          We further illustrate how these ideas can be applied to a widely range of practical learning problems, including <strong>dimension reduction, representation learning, classification, tracking, image and signal processing.</strong>
+        With particular emphasis on $\alpha$-divergence, we introduce a unified probabilistic framework for robust learning that incorporates adaptive probabilistic weighting to mitigate contamination. 
+        We further discuss the robustness-efficiency tradeoff, optimization strategies, theoretical properties of the resulting estimators and illustrate how these ideas apply to a wide range of learning problems, including 
+        <strong>dimension reduction, representation learning, classification, tracking, image and signal processing.</strong>
         </p>
 
       </div>

@@ -352,9 +352,9 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
         </p>
 
         <p>
-         Existing approaches to robust statistical learning include replacing quadratic losses with robust alternatives (e.g., $\ell_1$-loss, Huber and Tukey losses), adopting distributionally robust optimization, 
+         Existing approaches to robust statistical learning include replacing quadratic losses with robust alternatives, adopting distributionally robust optimization, 
          assuming heavy-tailed noise distributions, or applying external outlier detection. While these approaches offer different forms of robustness, they often rely on specific loss designs, distributional assumptions 
-         or additional procedures for identifying outliers. Divergence-based estimation offers a principled probabilistic framework that incorporates robustness directly into statistical inference, 
+         or additional procedures for identifying outliers. Divergence-based estimation offers a principled probabilistic framework that <strong>incorporates robustness directly into statistical inference</strong>,
         adaptively reducing the influence of contaminated observations while retaining useful information, <strong>without requiring explicit assumptions about the contamination distribution or separate outlier detection.</strong>
         </p>
 
@@ -373,24 +373,29 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
       <div class="cover-side">
 
         <div class="cover-card">
-          <h3>By the end, you will be able to</h3>
+          <h3>What you will gain</h3>
           <ul>
-            <li>Understand the limitations of classical estimation under contamination.</li>
-            <li>Explain the connections between maximum likelihood and divergence-based estimation.</li>
-            <li>Interpret the robustness mechanism induced by α-divergence.</li>
-            <li>Understand optimization strategies and theoretical properties of robust estimators.</li>
-            <li>Recognize practical applications of divergence-based robust learning.</li>
-          </ul>
+          <li>
+          <strong>Systematic understanding:</strong> Gain a comprehensive understanding of robust statistical learning,
+           from classical robust loss functions to modern divergence-based estimation methods.
+          </li>
+          <li>
+          <strong>Methodological insights:</strong> Understand the $\alpha$-divergence-based probabilistic framework, its adaptive robustness mechanism and practical implementation,
+          enabling you to develop robust extensions of your own machine learning methods.
+          </li>
+         <li>
+         <strong>Research applications:</strong> Explore published applications across diverse learning tasks and learn how to adapt or integrate existing $\alpha$-divergence-based
+         robust methods into your own research.
+         </li>
+         </ul>
         </div>
 
         <div class="cover-card">
           <h3>Who it is for</h3>
           <p>
-            Researchers, students, and practitioners in machine
-            learning, statistics, and signal processing.
-            A basic background in probability and statistical
-            learning is helpful, but prior knowledge of
-            divergence-based robust estimation is not required.
+          The tutorial is primarily intended for master’s and PhD students, as well as researchers specialising in statistics and data science. 
+          Researchers from other disciplines are also welcome, provided they have some familiarity with probability, optimization, statistics and machine learning.
+          <strong>No prior knowledge of robust statistics or $\alpha$-divergence is required</strong>.
           </p>
         </div>
 

@@ -435,28 +435,49 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 -->
 
 
+
 <!-- Programme -->
 <section id="schedule">
   <div class="wrap">
     <h2>Programme</h2>
 
     <p class="lead">
-      The tutorial introduces the motivation and foundations
-      of robust statistical learning through divergence-based
-      estimation. The detailed programme will be finalised
-      by 2 November 2026.
+      The tutorial explores the foundations of robust statistical
+      learning, from classical robust losses to divergence-based
+      estimation, with a focus on the principles, algorithms,
+      and applications of &alpha;-divergence.
     </p>
 
     <!-- Duration timeline -->
     <div class="programme-timeline">
       <div class="programme-bar">
 
-        <div class="programme-segment intro" style="flex:30">
+        <div class="programme-segment intro" style="flex:15">
+          <span>15 min</span>
+        </div>
+
+        <div class="programme-segment foundations" style="flex:20">
+          <span>20 min</span>
+        </div>
+
+        <div class="programme-segment alpha" style="flex:30">
           <span>30 min</span>
         </div>
 
-        <div class="programme-segment foundations" style="flex:60">
-          <span>60 min</span>
+        <div class="programme-segment break" style="flex:15">
+          <span>Break</span>
+        </div>
+
+        <div class="programme-segment learning" style="flex:25">
+          <span>25 min</span>
+        </div>
+
+        <div class="programme-segment signal" style="flex:35">
+          <span>35 min</span>
+        </div>
+
+        <div class="programme-segment discussion" style="flex:10">
+          <span>10 min</span>
         </div>
 
       </div>
@@ -464,37 +485,128 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
       <div class="programme-scale">
         <span>Start</span>
         <span>Duration by session</span>
-        <span>1 h 30</span>
+        <span>2 h 30 min</span>
       </div>
     </div>
 
     <!-- Programme details -->
     <div class="programme-list">
 
+      <!-- Part I -->
       <div class="programme-item">
         <div class="programme-time">
-          <strong>0:00 – 0:30</strong>
-          <span>30 minutes</span>
+          <strong>0:00 – 0:15</strong>
+          <span>15 minutes</span>
         </div>
         <div class="programme-content">
-          <h3>Introduction</h3>
+          <h3>Part I — Motivation: Why Robustness Matters</h3>
           <p>
-            Background and motivation for robust
-            statistical learning.
+            Illustrating how contamination affects classical
+            learning methods and introducing robust loss
+            functions (e.g., $\ell_1$, Huber, Tukey, and
+            capped-$\ell_p$), highlighting their strengths
+            and limitations.
           </p>
         </div>
       </div>
 
+      <!-- Part II -->
       <div class="programme-item">
         <div class="programme-time">
-          <strong>0:30 – 1:30</strong>
-          <span>60 minutes</span>
+          <strong>0:15 – 0:35</strong>
+          <span>20 minutes</span>
         </div>
         <div class="programme-content">
-          <h3>Part I: Foundations</h3>
+          <h3>Part II — Beyond Classical Robustness:
+              A Probabilistic Perspective</h3>
           <p>
-            Overview of divergence measures and their
-            role in robust statistical estimation.
+            Connecting maximum likelihood estimation to
+            KL divergence, examining observation-level
+            and component-wise contamination, and exploring
+            divergence-based robust estimation, including
+            Rényi, density power, and $\gamma$-divergences.
+          </p>
+        </div>
+      </div>
+
+      <!-- Part III -->
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>0:35 – 1:05</strong>
+          <span>30 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Part III — $\alpha$-Divergence:
+              Principles and Algorithms</h3>
+          <p>
+            Introducing the minimum $\alpha$-divergence
+            estimator, its induced loss function and adaptive
+            weighting mechanism, statistical properties,
+            robustness–efficiency trade-off, iterative
+            optimization, and practical implementation.
+          </p>
+        </div>
+      </div>
+
+      <!-- Break -->
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>1:05 – 1:20</strong>
+          <span>15 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Break</h3>
+        </div>
+      </div>
+
+      <!-- Part IV -->
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>1:20 – 1:45</strong>
+          <span>25 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Part IV — Robust Learning and Representation</h3>
+          <p>
+            Applications of $\alpha$-divergence to
+            classification (FDA, LDA, and QDA),
+            dimensionality reduction (PCA and CCA),
+            and dictionary learning, demonstrating robust
+            learning under data contamination.
+          </p>
+        </div>
+      </div>
+
+      <!-- Part V -->
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>1:45 – 2:20</strong>
+          <span>35 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Part V — Robust State Estimation and
+              Signal Processing</h3>
+          <p>
+            Applications to Kalman filtering and adaptive
+            beamforming, illustrating robust estimation
+            in dynamic systems and signal processing
+            under measurement contamination and
+            model uncertainties.
+          </p>
+        </div>
+      </div>
+
+      <!-- Closing -->
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>2:20 – 2:30</strong>
+          <span>10 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Closing Discussion and Q&amp;A</h3>
+          <p>
+            Open challenges, future research directions,
+            and audience questions.
           </p>
         </div>
       </div>
@@ -503,10 +615,107 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 
     <p class="programme-note">
       Times are measured from the beginning of the tutorial.
+      The programme is provisional and subject to change.
+    </p>
+
+  </div>
+</section>
+
+
+    
+    <!-- Programme details -->
+    <!--
+    <div class="programme-list">
+
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>0:00 – 0:15</strong>
+          <span>15 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Motivation: Why Does Robustness Matters </h3>
+          <p>
+          How contamination challenges classical learning methods, and how robust loss functions mitigate outlier influence while introducing their own limitations. Classical robust learning from loss functions (e.g., $\ell_1$, Huber, Tukey, capped-$\ell_p$) with their strength and limitations. 
+          </p>
+        </div>
+      </div>
+
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>0:15 – 0:35</strong>
+          <span>20 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Part II-- Beyond Classical Robustness: A Probabilistic Perspecive</h3>
+          <p>
+           From maximum likelihood and KL divergence to alternative divergence-based criteria, examining the challenges of complex contamination and the motivation for adaptive robustness.; A deeper challenge: vector and component-wise contamination; Overview of divergence-based robust estimation (e.g., R\'enyi, density power divergence and $\gamma$-divergence) 
+          </p>
+        </div>
+      </div>
+
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>0:35 – 1:05</strong>
+          <span>30 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Part III-- $\alpha$-Dovergence: Principles and Algorithms</h3>
+          <p>
+           Introducing $\alpha$-divergence, its loss function, The minimum $\alpha$-divergence estimator; Adaptive weighting mechanism; Asmpotititc normality; Robustness--efficiency tradeoffs, optimization procedure and pratcial implementations 
+          </p>
+        </div>
+      </div>
+
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>1:05 – 1:20</strong>
+          <span>15 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Break</h3>
+          <p>
+            
+          </p>
+        </div>
+      </div>
+      
+      <div class="programme-item">
+        <div class="programme-time">
+          <strong>1:20 – 1:40</strong>
+          <span>50 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Part IV--Applications and cases  </h3>
+          <p>
+           Applications to image classification (FDA), dimensionality reduction (PCA,CCA), representation learning, tracking and adaptive beamforming.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="programme-item">
+        <div class="programme-time">
+          <strong>1:20 – 1:40</strong>
+          <span>20 minutes</span>
+        </div>
+        <div class="programme-content">
+          <h3>Part IV--Closing Discussion  </h3>
+          <p>
+           Open challenges; Q&A.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <p class="programme-note">
+      Times are measured from the beginning of the tutorial.
       The programme is provisional and will be updated.
     </p>
 
   </div>
+-->
+
+  
 </section>
 
 

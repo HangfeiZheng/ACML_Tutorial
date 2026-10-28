@@ -67,6 +67,22 @@ h2::after{content:"";display:block;width:100%;height:4px;background:var(--gold);
 .learn strong{color:var(--ink)}
 .learn p{margin:8px 0 0}
 
+/* What the tutorial covers */
+#overview h2{margin:0 0 20px}
+.cover{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:32px;align-items:start}
+.cover-text p{margin:0 0 14px;line-height:1.7;color:var(--text-soft,#c9d6df)}
+.cover-text p:last-child{margin-bottom:0}
+.cover-text .lead{font-size:1.12rem;line-height:1.65;color:var(--text,#eef5f9)}
+.cover-side{display:flex;flex-direction:column;gap:16px}
+.cover-card{padding:18px 20px;border:1px solid rgba(220,241,250,.18);border-left:3px solid #e0a43a;border-radius:12px;background:rgba(255,255,255,.05)}
+.cover-card h3{margin:0 0 10px;font:700 .95rem var(--sans);letter-spacing:.02em;color:#e0a43a}
+.cover-card p{margin:0;font-size:.93rem;line-height:1.6;color:var(--text-soft,#c9d6df)}
+.cover-card ul{margin:0;padding:0;list-style:none}
+.cover-card li{position:relative;padding-left:20px;margin-bottom:9px;font-size:.93rem;line-height:1.55;color:var(--text-soft,#c9d6df)}
+.cover-card li:last-child{margin-bottom:0}
+.cover-card li::before{content:"";position:absolute;left:2px;top:.55em;width:7px;height:7px;border-radius:50%;background:rgba(39,151,160,.9)}
+@media (max-width:820px){.cover{grid-template-columns:1fr;gap:22px}}
+  
 /* Cards */
 .grid{display:grid;gap:22px;margin-top:34px}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -307,7 +323,7 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 
 
 <main class="wrap">
-
+<!--
 <section id="overview">
 <h2>Tutorial Overview</h2>
 <p class="lead">The tutorial is primarily intended for master’s and PhD students, as well as researchers specialising in statistics and data science. Researchers from other disciplines are also welcome, provided they have some familiarity with probability, optimization, statistics and machine learning. No prior knowledge of robust statistics or $\alpha$-divergence is required.</p>
@@ -317,7 +333,34 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 </p>
 </div>
 </section>
+-->
 
+<section id="overview">
+<h2>What the tutorial covers</h2>
+<div class="cover">
+<div class="cover-text">
+<p class="lead">Maximum likelihood and KL-divergence-based learning are efficient when the model is right, but a few outliers, heavy tails or a misspecified model can distort them. $\alpha$-divergence gives a single, tunable way to down-weight such observations while keeping the estimator principled.</p>
+<p>This tutorial builds the framework from the ground up: from MLE and KL divergence to the $\alpha$-divergence family, the robust surrogate objectives it induces, and the iteratively reweighted algorithms that optimise them.</p>
+<p>We then show how the same recipe carries across settings, including filtering, image processing, discriminant analysis and classification, and beamforming.</p>
+</div>
+<aside class="cover-side">
+<div class="cover-card">
+<h3>By the end, you will be able to</h3>
+<ul>
+<li>Explain why MLE and KL-based learning are sensitive to outliers and misspecification.</li>
+<li>Describe how $\alpha$ trades efficiency against robustness.</li>
+<li>Derive an $\alpha$-divergence-induced robust surrogate objective for your own model.</li>
+<li>Implement the resulting reweighted optimisation algorithm.</li>
+</ul>
+</div>
+<div class="cover-card">
+<h3>Who it is for</h3>
+<p>Master's and PhD students, and researchers in statistics and data science. Researchers from other disciplines are welcome with some familiarity with probability, optimisation, statistics and machine learning. No prior knowledge of robust statistics or $\alpha$-divergence is required.</p>
+</div>
+</aside>
+</div>
+</section>
+  
 <section id="presenters">
 <h2>Presenters</h2>
 <div class="grid g2">

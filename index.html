@@ -337,13 +337,12 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
       <div class="cover-text">
 
         <p>
-          Real-world data are often affected by outliers, heavy-tailed noise, and distributional contamination. Classical statistical learning methods based on
-          maximum likelihood estimation (MLE) can be highly sensitive to such deviations from the assumed probabilistic model.
+          Real-world data are often affected by outliers, heavy-tailed noise, and distributional contamination. Classical statistical learning methods can be highly sensitive to such deviations from the assumed probabilistic model.
         </p>
 
         <p>
          Existing approaches to robust statistical learning include replacing quadratic losses with robust alternatives, adopting distributionally robust optimization, 
-         assuming heavy-tailed noise distributions, or applying external outlier detection. While these approaches offer different forms of robustness, they often rely on specific loss designs, distributional assumptions 
+         assuming heavy-tailed noise distributions or applying external outlier detection. While these approaches offer different forms of robustness, they often rely on specific loss designs, distributional assumptions 
          or additional procedures for identifying outliers. Divergence-based estimation offers a principled probabilistic framework that <strong>incorporates robustness directly into statistical inference</strong>,
         adaptively reducing the influence of contaminated observations while retaining useful information, <strong>without requiring explicit assumptions about the contamination distribution or separate outlier detection.</strong>
         </p>

@@ -167,7 +167,7 @@
       last = null;
       acc = 0;
 
-      play.textContent = index >= N ? '✓ Finished' : '▶ Play';
+      play.textContent = index >= N ? '✓ Done' : '▶ Play';
       play.setAttribute('aria-pressed', 'false');
       play.disabled = index >= N;
     }

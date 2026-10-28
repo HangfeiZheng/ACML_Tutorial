@@ -67,21 +67,21 @@ h2::after{content:"";display:block;width:100%;height:4px;background:var(--gold);
 .learn strong{color:var(--ink)}
 .learn p{margin:8px 0 0}
 
+  
 /* What the tutorial covers */
-#overview h2{margin:0 0 20px}
-.cover{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:32px;align-items:start}
-.cover-text p{margin:0 0 14px;line-height:1.7;color:var(--text-soft,#c9d6df)}
+.cover{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:32px;align-items:start;margin-top:30px}
+.cover-text p{margin:0 0 16px;line-height:1.7}
 .cover-text p:last-child{margin-bottom:0}
-.cover-text .lead{font-size:1.12rem;line-height:1.65;color:var(--text,#eef5f9)}
 .cover-side{display:flex;flex-direction:column;gap:16px}
-.cover-card{padding:18px 20px;border:1px solid rgba(220,241,250,.18);border-left:3px solid #e0a43a;border-radius:12px;background:rgba(255,255,255,.05)}
-.cover-card h3{margin:0 0 10px;font:700 .95rem var(--sans);letter-spacing:.02em;color:#e0a43a}
-.cover-card p{margin:0;font-size:.93rem;line-height:1.6;color:var(--text-soft,#c9d6df)}
-.cover-card ul{margin:0;padding:0;list-style:none}
-.cover-card li{position:relative;padding-left:20px;margin-bottom:9px;font-size:.93rem;line-height:1.55;color:var(--text-soft,#c9d6df)}
+.cover-card{padding:22px 24px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px}
+.cover-card h3{margin:0 0 12px;font-size:19px;font-family:var(--serif);font-weight:700;color:var(--ink)}
+.cover-card p{margin:0;line-height:1.7}
+.cover-card ul{margin:0;padding-left:20px}
+.cover-card li{margin-bottom:10px;line-height:1.6}
 .cover-card li:last-child{margin-bottom:0}
-.cover-card li::before{content:"";position:absolute;left:2px;top:.55em;width:7px;height:7px;border-radius:50%;background:rgba(39,151,160,.9)}
-@media (max-width:820px){.cover{grid-template-columns:1fr;gap:22px}}
+.cover-card li::marker{color:var(--teal)}
+@media(max-width:820px){.cover{grid-template-columns:1fr;gap:24px}}
+
   
 /* Cards */
 .grid{display:grid;gap:22px;margin-top:34px}
@@ -335,31 +335,70 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 </section>
 -->
 
+
+<!-- Overview -->
 <section id="overview">
-<h2>What the tutorial covers</h2>
-<div class="cover">
-<div class="cover-text">
-<p class="lead">Maximum likelihood and KL-divergence-based learning are efficient when the model is right, but a few outliers, heavy tails or a misspecified model can distort them. $\alpha$-divergence gives a single, tunable way to down-weight such observations while keeping the estimator principled.</p>
-<p>This tutorial builds the framework from the ground up: from MLE and KL divergence to the $\alpha$-divergence family, the robust surrogate objectives it induces, and the iteratively reweighted algorithms that optimise them.</p>
-<p>We then show how the same recipe carries across settings, including filtering, image processing, discriminant analysis and classification, and beamforming.</p>
-</div>
-<aside class="cover-side">
-<div class="cover-card">
-<h3>By the end, you will be able to</h3>
-<ul>
-<li>Explain why MLE and KL-based learning are sensitive to outliers and misspecification.</li>
-<li>Describe how $\alpha$ trades efficiency against robustness.</li>
-<li>Derive an $\alpha$-divergence-induced robust surrogate objective for your own model.</li>
-<li>Implement the resulting reweighted optimisation algorithm.</li>
-</ul>
-</div>
-<div class="cover-card">
-<h3>Who it is for</h3>
-<p>Master's and PhD students, and researchers in statistics and data science. Researchers from other disciplines are welcome with some familiarity with probability, optimisation, statistics and machine learning. No prior knowledge of robust statistics or $\alpha$-divergence is required.</p>
-</div>
-</aside>
-</div>
+  <div class="wrap">
+    <h2>Tutorial Overview</h2>
+
+    <div class="cover">
+
+      <!-- Left column: Tutorial introduction -->
+      <div class="cover-text">
+
+        <p>
+          Real-world data are often affected by outliers, heavy-tailed noise, and distributional contamination. Classical statistical learning methods based on
+          maximum likelihood estimation can be highly sensitive to such deviations from the assumed probabilistic model.
+        </p>
+
+        <p>
+          Robust statistical learning seeks to reduce the influence of contaminated observations while preserving the useful information contained in the data. Divergence-based
+          estimation provides a principled probabilistic framework for achieving this balance between robustness and statistical efficiency.
+        </p>
+
+        <p>
+          This tutorial introduces the foundations of robust statistical learning, from classical robust loss functions and maximum likelihood estimation to
+          divergence-based approaches, with particular emphasis on $alpha$-divergence. We discuss the induced adaptive
+          weighting mechanism, optimization procedures and theoretical properties.
+        </p>
+
+        <p>
+          We further illustrate how these ideas can be applied to a widely range of practical learning problems, including classificantion,  discriminative subspace learning, tracking and signal processing.
+        </p>
+
+      </div>
+
+      <!-- Right column: Information cards -->
+      <div class="cover-side">
+
+        <div class="cover-card">
+          <h3>By the end, you will be able to</h3>
+          <ul>
+            <li>Understand the limitations of classical estimation under contamination.</li>
+            <li>Explain the connections between maximum likelihood and divergence-based estimation.</li>
+            <li>Interpret the robustness mechanism induced by α-divergence.</li>
+            <li>Understand optimization strategies and theoretical properties of robust estimators.</li>
+            <li>Recognize practical applications of divergence-based robust learning.</li>
+          </ul>
+        </div>
+
+        <div class="cover-card">
+          <h3>Who it is for</h3>
+          <p>
+            Researchers, students, and practitioners in machine
+            learning, statistics, and signal processing.
+            A basic background in probability and statistical
+            learning is helpful, but prior knowledge of
+            divergence-based robust estimation is not required.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 </section>
+
   
 <section id="presenters">
 <h2>Presenters</h2>

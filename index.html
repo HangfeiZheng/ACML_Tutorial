@@ -265,6 +265,14 @@ footer b{color:#fff;font-family:var(--serif);font-size:17px}
 .hero-details{grid-template-columns:minmax(0,1fr);gap:18px}
 .hero-left h1{font-size:clamp(36px,10vw,48px)}
 } 
+/* Responsive tracking legend */
+/* Mobile tracking layout */
+@media(max-width:600px){
+  .tracking-legend{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;column-gap:14px;row-gap:10px;margin:14px 0;font-size:11px}
+  .tracking-legend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+  .tracking-rate-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+  .tracking-rate-buttons button{padding:7px 9px}
+}
 </style>
 </head>
 
